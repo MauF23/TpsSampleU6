@@ -1,7 +1,10 @@
 ﻿using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM 
+
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using DG.Tweening;
+using Cinemachine;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -76,6 +79,15 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [Header("CinemachineAim")]
+        public CinemachineVirtualCamera playerCamera;
+        public float regularFOV;
+        public float aimFOV;
+        public float aimTweenTime;
+        private Tween tweenAim;
+
+
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -141,7 +153,7 @@ namespace StarterAssets
 
             //_hasAnimator = TryGetComponent(out _animator);
             _hasAnimator = !(_animator == null);
-			_controller = GetComponent<CharacterController>();
+            _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM 
             _playerInput = GetComponent<PlayerInput>();
@@ -163,6 +175,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            Aim();
         }
 
         private void LateUpdate()
@@ -357,6 +370,17 @@ namespace StarterAssets
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
+        }
+
+        private void Aim()
+        {
+            float targetFov = _input.aim ? aimFOV : regularFOV;
+            tweenAim?.Kill(false);
+            tweenAim = DOTween.To(() => playerCamera.m_Lens.FieldOfView, x => playerCamera.m_Lens.FieldOfView = x, targetFov, aimTweenTime);
+
+            _animator.SetBool("Aiming", _input.aim);
+
+            Debug.Log("AimValueIs = " + _input.aim);
         }
 
         private void OnDrawGizmosSelected()
