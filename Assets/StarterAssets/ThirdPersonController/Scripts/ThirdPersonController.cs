@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using Cinemachine;
+using UnityEngine.Animations.Rigging;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -84,6 +85,7 @@ namespace StarterAssets
         public float regularFOV;
         public float aimFOV;
         public float aimTweenTime;
+        public Rig aimRig;
         private Tween tweenAim;
 
 
@@ -375,6 +377,10 @@ namespace StarterAssets
         private void Aim()
         {
             float targetFov = _input.aim ? aimFOV : regularFOV;
+            float targetRigWeight = _input.aim ? 1 : 0;
+
+            aimRig.weight = targetRigWeight;
+
             tweenAim?.Kill(false);
             tweenAim = DOTween.To(() => playerCamera.m_Lens.FieldOfView, x => playerCamera.m_Lens.FieldOfView = x, targetFov, aimTweenTime);
 
