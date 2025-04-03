@@ -110,8 +110,9 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _animIDMoveX, _animIDMoveZ;
 
-#if ENABLE_INPUT_SYSTEM 
+#if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
 
@@ -190,6 +191,8 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDMoveX = Animator.StringToHash("MoveDirX");
+            _animIDMoveZ = Animator.StringToHash("MoveDirZ");
         }
 
         private void GroundedCheck()
@@ -275,7 +278,11 @@ namespace StarterAssets
                 Rotation(new Vector2(inputDirection.x, inputDirection.z), true);
             }
 
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+            float cameraForward = CameraManager.instance.playerCamera.transform.eulerAngles.y;
+
+            Vector3 targetDirection = _input.aim ?
+            Quaternion.Euler(0.0f, cameraForward, 0.0f) * inputDirection
+            : Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
@@ -286,6 +293,9 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+
+                _animator.SetFloat(_animIDMoveX, inputDirection.normalized.x);
+                _animator.SetFloat(_animIDMoveZ, inputDirection.normalized.z);
             }
         }
 
@@ -398,10 +408,12 @@ namespace StarterAssets
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                Debug.Log("RegularRotation");
             }
             else
             {
                 transform.rotation = Quaternion.LookRotation(direction);
+                Debug.Log("AimRotation");
             }
         }
 
@@ -419,24 +431,24 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
-        private void OnFootstep(AnimationEvent animationEvent)
-        {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                if (FootstepAudioClips.Length > 0)
-                {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-                }
-            }
-        }
+        // private void OnFootstep(AnimationEvent animationEvent)
+        // {
+        //     if (animationEvent.animatorClipInfo.weight > 0.5f)
+        //     {
+        //         if (FootstepAudioClips.Length > 0)
+        //         {
+        //             var index = Random.Range(0, FootstepAudioClips.Length);
+        //             AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+        //         }
+        //     }
+        // }
 
-        private void OnLand(AnimationEvent animationEvent)
-        {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
-            }
-        }
+        // private void OnLand(AnimationEvent animationEvent)
+        // {
+        //     if (animationEvent.animatorClipInfo.weight > 0.5f)
+        //     {
+        //         AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+        //     }
+        // }
     }
 }

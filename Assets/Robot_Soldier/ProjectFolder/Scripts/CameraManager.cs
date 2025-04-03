@@ -24,12 +24,14 @@ public class CameraManager : MonoBehaviour
     public Vector3 Aim()
     {
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, DEFAULT_AIM_RANGE, aimLayer))
         {
             //Debug.Log($"RayHitted: {hit.transform.name}");
             return hit.point;
         }
-
-        return ray.direction * DEFAULT_AIM_RANGE;
+        else
+        {
+            return ray.direction * DEFAULT_AIM_RANGE;
+        }
     }
 }
