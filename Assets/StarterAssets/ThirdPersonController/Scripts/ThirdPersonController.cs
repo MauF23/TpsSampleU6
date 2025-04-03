@@ -88,8 +88,6 @@ namespace StarterAssets
         public Rig aimRig;
         private Tween tweenAim;
 
-
-
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -272,17 +270,10 @@ namespace StarterAssets
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
+            if (_input.move != Vector2.zero && !_input.aim)
             {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                    RotationSmoothTime);
-
-                // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                Rotation(new Vector2(inputDirection.x, inputDirection.z), true);
             }
-
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
@@ -386,7 +377,32 @@ namespace StarterAssets
 
             _animator.SetBool("Aiming", _input.aim);
 
-            Debug.Log("AimValueIs = " + _input.aim);
+            if (CameraManager.instance != null && _input.aim)
+            {
+                Vector3 aimVector = CameraManager.instance.Aim();
+                Rotation(new Vector2(aimVector.x, aimVector.z), false);
+            }
+            //Debug.Log("AimValueIs = " + _input.aim);
+        }
+
+        public void Rotation(Vector2 target, bool smoothRotation)
+        {
+            Vector3 direction = new Vector3(target.x, 0, target.y);
+            if (direction.sqrMagnitude < 0.001f) return;
+
+            _targetRotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+                              _mainCamera.transform.eulerAngles.y;
+
+            if (smoothRotation)
+            {
+                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+                    RotationSmoothTime);
+                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            }
+            else
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
         }
 
         private void OnDrawGizmosSelected()

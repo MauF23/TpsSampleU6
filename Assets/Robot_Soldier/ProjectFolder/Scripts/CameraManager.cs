@@ -6,17 +6,27 @@ public class CameraManager : MonoBehaviour
     public Transform aimHelper;
     public LayerMask aimLayer;
     private const float DEFAULT_AIM_RANGE = 100;
-    
+    public static CameraManager instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
     void Update()
     {
         aimHelper.transform.position = Aim();
     }
 
-    Vector3 Aim()
+    public Vector3 Aim()
     {
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, aimLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimLayer))
         {
+            //Debug.Log($"RayHitted: {hit.transform.name}");
             return hit.point;
         }
 
