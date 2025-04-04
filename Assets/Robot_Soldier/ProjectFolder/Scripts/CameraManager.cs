@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     public Camera playerCamera;
-    public Transform aimHelper;
+    public Transform aimHelper, aimVisualHelper;
     public LayerMask aimLayer;
     private const float DEFAULT_AIM_RANGE = 100;
     public static CameraManager instance;

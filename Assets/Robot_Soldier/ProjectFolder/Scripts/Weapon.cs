@@ -8,8 +8,12 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private Transform firePoint;
 
-    [Range(10, 10000)]
+    [SerializeField, Range(10, 10000)]
     private float weaponRange;
+
+    [SerializeField, Range(0.1f, 5)]
+    private float fireRate;
+    private float nextTimeToFire = 0;
 
     private CameraManager cameraManager;
 
@@ -25,9 +29,14 @@ public class Weapon : MonoBehaviour
     {
         if (_input.shoot && cameraManager != null)
         {
-            Vector3 direction = cameraManager.Aim() - firePoint.position;
-            Ray ray = new Ray(firePoint.position, direction);
-            Debug.DrawRay(firePoint.position, direction, Color.red, 4);
+            if (Time.time >= nextTimeToFire)
+            {
+                Vector3 direction = cameraManager.Aim() - firePoint.position;
+                Ray ray = new Ray(firePoint.position, direction);
+                Debug.DrawRay(firePoint.position, direction, Color.red);
+
+                nextTimeToFire = Time.time + fireRate;
+            }
         }
     }
 }
