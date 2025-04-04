@@ -378,7 +378,7 @@ namespace StarterAssets
         private void Aim()
         {
             float targetFov = _input.aim ? aimFOV : regularFOV;
-            float targetRigWeight = _input.aim ? 1 : 0;
+            float targetRigWeight = _input.aim ? 0.85f : 0;
 
             aimRig.weight = targetRigWeight;
 
@@ -412,7 +412,8 @@ namespace StarterAssets
             }
             else
             {
-                transform.rotation = Quaternion.LookRotation(direction);
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 30);
                 Debug.Log("AimRotation");
             }
         }
