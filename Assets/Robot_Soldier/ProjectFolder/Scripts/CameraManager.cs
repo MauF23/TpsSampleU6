@@ -1,12 +1,21 @@
 using UnityEngine;
+using DG.Tweening;
+using Cinemachine;
+using System.Collections;
+using Unity.Collections;
 
 public class CameraManager : MonoBehaviour
 {
     public Camera playerCamera;
-    public Transform aimHelper, aimVisualHelper;
+    public CinemachineVirtualCamera playerVirtualCamera;
+    private CinemachineBasicMultiChannelPerlin noise;
+    private Coroutine shakeRoutine;
+    public Transform aimHelper;
     public LayerMask aimLayer;
     private const float DEFAULT_AIM_RANGE = 100;
     public static CameraManager instance;
+    private Sequence cameraShakeTweenSequence;
+
 
     void Awake()
     {
@@ -14,6 +23,11 @@ public class CameraManager : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    void Start()
+    {
+        noise = playerVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     void Update()
@@ -33,5 +47,30 @@ public class CameraManager : MonoBehaviour
         {
             return ray.direction * DEFAULT_AIM_RANGE;
         }
+    }
+
+    public void ShakeCam()
+    {
+        if (shakeRoutine != null)
+        {
+            StopCoroutine(shakeRoutine);
+        }
+
+        shakeRoutine = StartCoroutine(ShakeCamCoroutine());
+    }
+
+    IEnumerator ShakeCamCoroutine()
+    {
+
+
+        noise.m_AmplitudeGain = 0.5f;
+        noise.m_FrequencyGain = 0.25f;
+
+        yield return new WaitForSeconds(0.25f);
+
+        cameraShakeTweenSequence = DOTween.Sequence();
+        cameraShakeTweenSequence.Append(DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0, 0));
+        cameraShakeTweenSequence.Append(DOTween.To(() => noise.m_FrequencyGain, x => noise.m_FrequencyGain = x, 0, 0));
+        cameraShakeTweenSequence.Play();
     }
 }
