@@ -49,4 +49,16 @@ public class DroneBehavior : MonoBehaviour
     {
 		sequenceMovement?.Pause();
 	}
+
+	private Vector3[] WaypointsArray()
+	{
+		Vector3[] points = new Vector3[waypoints.Length];
+		for (int i = 0; i < waypoints.Length; i++)
+		{
+			points[i] = waypoints[i].position;
+		}
+
+		return points;
+
+	}
 }
