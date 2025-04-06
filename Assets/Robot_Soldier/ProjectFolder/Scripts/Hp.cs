@@ -17,18 +17,6 @@ public class Hp : MonoBehaviour
 	[SerializeField]
 	protected int currentHp;
 
-
-	//void TakeDamage()
-	//{
-	//	ReduceHp(1);
-	//}
-
-
-	//void InstaKill()
-	//{
-	//	ReduceHp(startingHp);
-	//}
-
 	protected virtual void Start()
 	{
 		currentHp = startingHp;
