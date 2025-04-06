@@ -9,11 +9,12 @@ public class CameraManager : MonoBehaviour
     public Camera playerCamera;
     public CinemachineVirtualCamera playerVirtualCamera;
     private CinemachineBasicMultiChannelPerlin noise;
-    private Coroutine shakeRoutine;
     public Transform aimHelper;
     public LayerMask aimLayer;
     private const float DEFAULT_AIM_RANGE = 100;
-    public static CameraManager instance;
+    private const float SHAKE_DEFAULT_TIME = 0.5f;
+
+	public static CameraManager instance;
     private Sequence cameraShakeTweenSequence;
 
 
@@ -51,26 +52,14 @@ public class CameraManager : MonoBehaviour
 
     public void ShakeCam()
     {
-        if (shakeRoutine != null)
-        {
-            StopCoroutine(shakeRoutine);
-        }
+        cameraShakeTweenSequence?.Kill();
 
-        shakeRoutine = StartCoroutine(ShakeCamCoroutine());
-    }
+		noise.m_AmplitudeGain = 1;
+		noise.m_FrequencyGain = 2;
 
-    IEnumerator ShakeCamCoroutine()
-    {
-
-
-        noise.m_AmplitudeGain = 0.5f;
-        noise.m_FrequencyGain = 0.25f;
-
-        yield return new WaitForSeconds(0.25f);
-
-        cameraShakeTweenSequence = DOTween.Sequence();
-        cameraShakeTweenSequence.Append(DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0, 0));
-        cameraShakeTweenSequence.Append(DOTween.To(() => noise.m_FrequencyGain, x => noise.m_FrequencyGain = x, 0, 0));
-        cameraShakeTweenSequence.Play();
-    }
+		cameraShakeTweenSequence = DOTween.Sequence();
+		cameraShakeTweenSequence.Append(DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0, SHAKE_DEFAULT_TIME));
+		cameraShakeTweenSequence.Join(DOTween.To(() => noise.m_FrequencyGain, x => noise.m_FrequencyGain = x, 0, SHAKE_DEFAULT_TIME));
+		cameraShakeTweenSequence.Play();
+	}
 }

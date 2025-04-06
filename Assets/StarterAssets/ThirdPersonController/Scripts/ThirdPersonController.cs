@@ -87,9 +87,10 @@ namespace StarterAssets
         public float aimTweenTime;
         public Rig aimRig;
         private Tween tweenAim;
+        private UiManager uiManager;
 
-        // cinemachine
-        private float _cinemachineTargetYaw;
+		// cinemachine
+		private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
 
         // player
@@ -167,7 +168,9 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
-        }
+            uiManager = UiManager.instance;
+
+		}
 
         private void Update()
         {
@@ -386,6 +389,7 @@ namespace StarterAssets
             tweenAim = DOTween.To(() => playerCamera.m_Lens.FieldOfView, x => playerCamera.m_Lens.FieldOfView = x, targetFov, aimTweenTime);
 
             _animator.SetBool("Aiming", _input.aim);
+            uiManager.ToggleAim(_input.aim);
 
             if (CameraManager.instance != null && _input.aim)
             {
@@ -393,6 +397,11 @@ namespace StarterAssets
                 Rotation(new Vector2(aimVector.x, aimVector.z), false);
             }
             //Debug.Log("AimValueIs = " + _input.aim);
+        }
+
+        public void ToggleInputBlock(bool blocked)
+        {
+            _playerInput.enabled = !blocked;
         }
 
         public void Rotation(Vector2 target, bool smoothRotation)

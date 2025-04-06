@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (_input.shoot && cameraManager != null)
+        if (_input.aim && _input.shoot && cameraManager != null)
         {
             if (Time.time >= nextTimeToFire)
             {
