@@ -9,12 +9,10 @@ public class Hp : MonoBehaviour
 
 	public int startingHp;
 
-	public UnityEvent onRemoveHpEvent, onDeathEvent;
+	public UnityEvent onRemoveHpEvent, onDeathEvent, onReviveEvent;
 
+	public GameObject visualReferenceGameObject;
 
-	public GameObject rootGameObject;
-
-	[SerializeField]
 	protected int currentHp;
 
 	protected virtual void Start()
@@ -50,6 +48,14 @@ public class Hp : MonoBehaviour
 	protected virtual void Death()
 	{
 		onDeathEvent?.Invoke();
-		rootGameObject.SetActive(false);
+		visualReferenceGameObject.SetActive(false);
+	}
+
+	protected virtual void Revive()
+	{
+		currentHp = startingHp;
+		visualReferenceGameObject.SetActive(true);
+		onReviveEvent?.Invoke();
+
 	}
 }

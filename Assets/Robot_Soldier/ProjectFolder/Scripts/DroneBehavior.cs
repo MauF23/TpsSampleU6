@@ -30,12 +30,23 @@ public class DroneBehavior : MonoBehaviour
         Movement();
 
 	}
-    void Movement()
+	public void Movement()
     {
         sequenceMovement = DOTween.Sequence();
         sequenceMovement.Append(transform.DOLookAt(currentWayPoint.position, rotateTime));
         sequenceMovement.Append(transform.DOMove(currentWayPoint.position, movementTime));
 
         sequenceMovement.OnComplete(GetNextWaypoint); 
+	}
+
+	public void ResumeMovement()
+    {
+        sequenceMovement?.Play();
+
+	}
+
+	public void StopMovement()
+    {
+		sequenceMovement?.Pause();
 	}
 }

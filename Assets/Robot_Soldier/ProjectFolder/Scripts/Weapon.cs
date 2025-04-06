@@ -17,7 +17,10 @@ public class Weapon : MonoBehaviour
     [SerializeField, Range(10, 10000)]
     private float weaponRange;
 
-    [SerializeField, Range(0.1f, 5)]
+    [SerializeField]
+    private int weaponDamage;
+
+	[SerializeField, Range(0.1f, 5)]
     private float fireRate;
     private float nextTimeToFire = 0;
 
@@ -48,8 +51,9 @@ public class Weapon : MonoBehaviour
                 {
                     if (hit.collider != null)
                     {
-                        GameObject impactFX = Instantiate(impactFXPrefab, hit.point, Quaternion.identity);
-                    }
+                        GameObject impactFX = Instantiate(impactFXPrefab, hit.point, Quaternion.Euler(hit.normal));
+                        DealDamage(hit.collider);
+					}
                 }
 
                 cameraManager?.ShakeCam();
@@ -57,5 +61,11 @@ public class Weapon : MonoBehaviour
                 nextTimeToFire = Time.time + fireRate;
             }
         }
+    }
+
+    void DealDamage(Collider collider)
+    {
+        Hp hp = collider.GetComponent<Hp>();
+        hp?.ReduceHp(weaponDamage);
     }
 }

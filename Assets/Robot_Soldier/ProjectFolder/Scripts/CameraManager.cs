@@ -14,6 +14,9 @@ public class CameraManager : MonoBehaviour
     private const float DEFAULT_AIM_RANGE = 100;
     private const float SHAKE_DEFAULT_TIME = 0.5f;
 
+    private const float DEFAULT_SHAKE_AMP = 0.5f;
+    private const float DEFAULT_SHAKE_GAIN = 2;
+
 	public static CameraManager instance;
     private Sequence cameraShakeTweenSequence;
 
@@ -54,8 +57,8 @@ public class CameraManager : MonoBehaviour
     {
         cameraShakeTweenSequence?.Kill();
 
-		noise.m_AmplitudeGain = 1;
-		noise.m_FrequencyGain = 2;
+		noise.m_AmplitudeGain = DEFAULT_SHAKE_AMP;
+		noise.m_FrequencyGain = DEFAULT_SHAKE_GAIN;
 
 		cameraShakeTweenSequence = DOTween.Sequence();
 		cameraShakeTweenSequence.Append(DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0, SHAKE_DEFAULT_TIME));
