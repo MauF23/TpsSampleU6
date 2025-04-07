@@ -89,8 +89,8 @@ namespace StarterAssets
         private Tween tweenAim;
         private UiManager uiManager;
 
-		// cinemachine
-		private float _cinemachineTargetYaw;
+        // cinemachine
+        private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
 
         // player
@@ -170,7 +170,7 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
             uiManager = UiManager.instance;
 
-		}
+        }
 
         private void Update()
         {
@@ -242,7 +242,7 @@ namespace StarterAssets
             if (_input.aim)
             {
                 targetSpeed = MoveSpeed;
-			}
+            }
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -446,24 +446,24 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
-        // private void OnFootstep(AnimationEvent animationEvent)
-        // {
-        //     if (animationEvent.animatorClipInfo.weight > 0.5f)
-        //     {
-        //         if (FootstepAudioClips.Length > 0)
-        //         {
-        //             var index = Random.Range(0, FootstepAudioClips.Length);
-        //             AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-        //         }
-        //     }
-        // }
+        private void OnFootstep(AnimationEvent animationEvent)
+        {
+            // if (animationEvent.animatorClipInfo.weight > 0.5f)
+            // {
+            //     if (FootstepAudioClips.Length > 0)
+            //     {
+            //         var index = Random.Range(0, FootstepAudioClips.Length);
+            //         AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+            //     }
+            // }
+        }
 
-        // private void OnLand(AnimationEvent animationEvent)
-        // {
-        //     if (animationEvent.animatorClipInfo.weight > 0.5f)
-        //     {
-        //         AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
-        //     }
-        // }
+        private void OnLand(AnimationEvent animationEvent)
+        {
+            // if (animationEvent.animatorClipInfo.weight > 0.5f)
+            // {
+            //     AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+            // }
+        }
     }
 }
