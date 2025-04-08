@@ -2147,7 +2147,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: field of view
-      value: 38.08434
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: far clip plane
@@ -2354,7 +2354,7 @@ PrefabInstance:
       objectReference: {fileID: 8338988565591873055}
     - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_Lens.FieldOfView
-      value: 38.08434
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: CameraSide
@@ -3535,15 +3535,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966951385}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: -3.2, y: -1.1999998, z: 0.0000038146973}
+  m_LocalRotation: {x: -0, y: -0.28802633, z: -0, w: 0.9576226}
+  m_LocalPosition: {x: -3.2036476, y: -1.1999998, z: -0.006495476}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 550192470}
   - {fileID: 1835430754}
   m_Father: {fileID: 93099096}
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -33.48, z: 0}
 --- !u!114 &1966951387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3561,8 +3561,52 @@ MonoBehaviour:
   - {fileID: 678992600}
   - {fileID: 151792542}
   - {fileID: 2043620083}
-  rotateTime: 0.2
-  movementTime: 3
+  rotateTime: 1
+  movementTime: 1
+  jumpPower: 10
+  easeType: 30
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.6
+      outSlope: 1.6
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.8
+      inSlope: -0.07500005
+      outSlope: -0.07500005
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9
+      value: 0.1
+      inSlope: 3.624999
+      outSlope: 3.624999
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 8.999998
+      outSlope: 8.999998
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!135 &1966951388
 SphereCollider:
   m_ObjectHideFlags: 0
