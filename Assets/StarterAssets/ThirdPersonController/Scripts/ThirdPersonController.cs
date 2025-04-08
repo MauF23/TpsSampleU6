@@ -386,7 +386,7 @@ namespace StarterAssets
         private void Aim()
         {
             float targetFov = _input.aim ? aimFOV : regularFOV;
-            float targetRigWeight = _input.aim ? 0.85f : 0;
+            float targetRigWeight = _input.aim ? 1f : 0;
 
             aimRig.weight = targetRigWeight;
 
@@ -417,18 +417,26 @@ namespace StarterAssets
             _targetRotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
                               _mainCamera.transform.eulerAngles.y;
 
+            //Regular rotation  
             if (smoothRotation)
             {
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-                Debug.Log("RegularRotation");
+                //Debug.Log("RegularRotation");
             }
+
+            //AimRotation
             else
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 30);
-                Debug.Log("AimRotation");
+                Vector3 lookDirection = CameraManager.instance.playerCamera.transform.forward;
+                lookDirection.y = 0;
+
+                if (lookDirection.sqrMagnitude > 0.001f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                    transform.rotation = targetRotation;
+                }
             }
         }
 
