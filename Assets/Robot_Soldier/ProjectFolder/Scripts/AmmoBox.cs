@@ -1,22 +1,27 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
-public class AmmoBox : MonoBehaviour
+public class AmmoBox : Interactable
 {
     public Transform boxLid;
     public Vector3 tweenDegrees;
-    public float tweenTime;
-    public Tween tweenOpenBox;
+    public float tweenTime, delayCloseTime;
+    private Sequence sequenceOpenBox;
 
-    void Start()
+    protected override void Interact()
     {
+        base.Interact();
+        sequenceOpenBox?.Kill();
+
+        Action reloadAction = () => Debug.Log("AmmoGiven");
+
+        sequenceOpenBox = DOTween.Sequence();
+        sequenceOpenBox.Append(boxLid.DOLocalRotate(tweenDegrees, tweenTime).OnStart(() => reloadAction?.Invoke()).SetEase(Ease.OutBounce)); //OpenBox
+        sequenceOpenBox.Append(boxLid.DOLocalRotate(Vector3.zero, tweenTime).SetDelay(delayCloseTime)); //CloseBox
+
+        sequenceOpenBox.OnComplete(() => canInteract = true);
 
     }
 
-
-    void OpenBox()
-    {
-        tweenOpenBox?.Kill();
-        tweenOpenBox = boxLid.DORotate(tweenDegrees, tweenTime);
-    }
 }
