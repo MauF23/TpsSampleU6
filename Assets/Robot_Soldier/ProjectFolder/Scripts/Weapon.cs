@@ -25,16 +25,20 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private int weaponDamage;
 
-	[SerializeField, Range(0.1f, 5)]
+    [SerializeField, Range(0.1f, 5)]
     private float fireRate;
     private float nextTimeToFire = 0;
+
+    public int currentAmmo;
+    public int currentReserveAmmo;
+    public int maxAmmoCapacity;
 
     [SerializeField]
     private LayerMask layerMask;
 
     private CameraManager cameraManager;
 
-    void Start()
+    private void Start()
     {
         if (CameraManager.instance != null)
         {
@@ -42,7 +46,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (_input.aim && _input.shoot && cameraManager != null)
         {
@@ -58,22 +62,22 @@ public class Weapon : MonoBehaviour
                     {
                         GameObject impactFX = Instantiate(impactFXPrefab, hit.point, Quaternion.Euler(hit.normal));
                         DealDamage(hit.collider);
-					}
+                    }
                 }
 
                 cameraManager?.ShakeCam();
                 particleMuzzleFlash?.Play();
                 nextTimeToFire = Time.time + fireRate;
                 currentSpreadRadius += spreadRadiusBuildUp;
-			}
-
-			if(currentSpreadRadius > 0)
-            {
-                spreadRecovery?.Kill();
-				spreadRecovery = DOTween.To(()=>currentSpreadRadius, x => currentSpreadRadius = x, 0, spreadResetTime);
             }
 
-		}
+            if (currentSpreadRadius > 0)
+            {
+                spreadRecovery?.Kill();
+                spreadRecovery = DOTween.To(() => currentSpreadRadius, x => currentSpreadRadius = x, 0, spreadResetTime);
+            }
+
+        }
     }
 
     private Vector3 Spread(float radius)
@@ -83,9 +87,28 @@ public class Weapon : MonoBehaviour
         return spreadPoint;
     }
 
-    void DealDamage(Collider collider)
+    private void DealDamage(Collider collider)
     {
         Hp hp = collider.GetComponent<Hp>();
         hp?.ReduceHp(weaponDamage);
+    }
+
+    public void Reload()
+    {
+        if (currentAmmo <= 0)
+        {
+            return;
+        }
+
+        maxAmmoCapacity = Mathf.Clamp(maxAmmoCapacity, 0, currentReserveAmmo);
+
+        int ammoToReload = maxAmmoCapacity - currentReserveAmmo;
+        currentAmmo += ammoToReload;
+    }
+
+    public void AddReserveAmmo(int amount)
+    {
+        int clampedAmount = Mathf.Clamp(amount, 0, maxAmmoCapacity);
+        currentReserveAmmo += clampedAmount;
     }
 }
