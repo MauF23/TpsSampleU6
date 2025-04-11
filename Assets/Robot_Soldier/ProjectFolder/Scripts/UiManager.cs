@@ -4,6 +4,7 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using StarterAssets;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class UiManager : MonoBehaviour
 	public PlayerInput playerInput;
 	public ThirdPersonController thirdPersonController;
 	public Ease easeType;
+
+	[Header("WeponUI")]
+	public TextMeshProUGUI textAmmoCount;
+
 
 	public bool paused
 	{
@@ -37,7 +42,7 @@ public class UiManager : MonoBehaviour
 
 	private void Awake()
 	{
-		if(instance == null)
+		if (instance == null)
 		{
 			instance = this;
 		}
@@ -48,7 +53,7 @@ public class UiManager : MonoBehaviour
 		canvasGroup.alpha = 0;
 		canvasGroup.interactable = false;
 		canvasGroup.blocksRaycasts = false;
-		aimImage.DOFade(0,0);
+		aimImage.DOFade(0, 0);
 		HideUiElements();
 		buttonResume?.onClick.AddListener(() => { DisplayPause(false); });
 	}
@@ -77,12 +82,12 @@ public class UiManager : MonoBehaviour
 		Time.timeScale = paused ? 0 : 1;
 		Cursor.lockState = paused ? CursorLockMode.Confined : CursorLockMode.Locked;
 
-		canvasGroup.DOFade(endValue, TWEEN_TIME).OnComplete(() => 
-		{ 
-			if (revealed) 
-			{ 
+		canvasGroup.DOFade(endValue, TWEEN_TIME).OnComplete(() =>
+		{
+			if (revealed)
+			{
 				TweenUI();
-			} 
+			}
 		}).SetUpdate(true);
 
 		canvasGroup.interactable = revealed;
@@ -109,5 +114,10 @@ public class UiManager : MonoBehaviour
 		{
 			uiElements[i].alpha = 0;
 		}
+	}
+
+	public void SetAmmoCount(int currentAmmo, int reserveAmmo)
+	{
+		textAmmoCount.text = $"{currentAmmo}/{reserveAmmo}";
 	}
 }

@@ -88,6 +88,7 @@ namespace StarterAssets
         public Rig aimRig;
         private Tween tweenAim;
         private UiManager uiManager;
+        public Weapon currentWeapon;
 
         // cinemachine
         private float _cinemachineTargetYaw;

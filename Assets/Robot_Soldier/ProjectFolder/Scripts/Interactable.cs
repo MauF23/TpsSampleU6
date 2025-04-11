@@ -8,12 +8,12 @@ public class Interactable : MonoBehaviour
     public Collider collider;
     public Vector3 rayOffset;
     public float interactDistance = 1;
-    private float interactRayRadius = 3;
+    protected float interactRayRadius = 3;
     public bool canInteract = true;
-    private RaycastHit hit;
-    private ThirdPersonController playerInBounds;
-    private ThirdPersonController playerInRange;
-    private Color debugColor;
+    protected RaycastHit hit;
+    protected ThirdPersonController playerInBounds;
+    protected ThirdPersonController playerInRange;
+    protected Color debugColor;
 
     protected virtual void Start()
     {
