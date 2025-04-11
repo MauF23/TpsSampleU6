@@ -50,6 +50,15 @@ public class Weapon : MonoBehaviour
     {
         if (_input.aim && _input.shoot && cameraManager != null)
         {
+
+            if (currentAmmo <= 0)
+            {
+                return;
+            }
+
+            currentAmmo--;
+            currentAmmo = Mathf.Clamp(currentAmmo, 0, maxAmmoCapacity);
+
             if (Time.time >= nextTimeToFire)
             {
                 Vector3 direction = cameraManager.Aim() - (firePoint.position + Spread(currentSpreadRadius));
