@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
     private Animator animator;
 
     [SerializeField]
-    private Rig rigIdle;
+    private Rig rigIdle, aimIdle;
 
     [SerializeField, Range(10, 10000)]
     private float weaponRange;
@@ -137,13 +137,13 @@ public class Weapon : MonoBehaviour
     {
         reloading = true;
         Debug.Log($"ReloadStart");
-        rigIdle.weight = 0;
+        ToggleRigs(false);
         animator?.SetTrigger(ANIM_RELOAD_TRIGGER);
     }
 
     public void Reload()
     {
-        rigIdle.weight = 1;
+        ToggleRigs(true);
 
         if (currentReserveAmmo <= 0 || currentAmmo >= maxAmmoCapacity)
         {
@@ -167,5 +167,12 @@ public class Weapon : MonoBehaviour
         currentReserveAmmo += amount;
         currentReserveAmmo = Mathf.Clamp(currentReserveAmmo, 0, maxAmmoCapacity);
         uiManager?.SetAmmoCount(currentAmmo, currentReserveAmmo);
+    }
+
+    private void ToggleRigs(bool toggle)
+    {
+        float endValue = toggle ? 1 : 0;
+        rigIdle.weight = endValue;
+        aimIdle.weight = endValue;
     }
 }

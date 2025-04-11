@@ -2761,7 +2761,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: field of view
-      value: 39.99999
+      value: 36.30367
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: far clip plane
@@ -2999,7 +2999,7 @@ PrefabInstance:
       objectReference: {fileID: 8338988565591873055}
     - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_Lens.FieldOfView
-      value: 39.99999
+      value: 36.30367
       objectReference: {fileID: 0}
     - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: CameraSide
@@ -44914,6 +44914,7 @@ MonoBehaviour:
   firePoint: {fileID: 760883955}
   animator: {fileID: 1517365144}
   rigIdle: {fileID: 1894695027}
+  aimIdle: {fileID: 40486064}
   weaponRange: 100
   spreadRadiusBuildUp: 0.1
   spreadMaxRadius: 5
