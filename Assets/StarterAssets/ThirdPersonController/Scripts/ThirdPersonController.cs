@@ -85,7 +85,9 @@ namespace StarterAssets
         public float regularFOV;
         public float aimFOV;
         public float aimTweenTime;
-        public Rig aimRig;
+        public Rig aimRig, idleRig;
+        private Tween aimTween, idleTween;
+        private const float RIG_TWEEN_TIME = 0.2f;
         private Tween tweenAim;
         private UiManager uiManager;
         public Weapon currentWeapon;
@@ -388,16 +390,26 @@ namespace StarterAssets
 
         private void Aim()
         {
-            float targetFov = _input.aim ? aimFOV : regularFOV;
-            float targetRigWeight = _input.aim ? 1f : 0;
+            aimTween?.Kill();
+            idleTween?.Kill();
+            tweenAim?.Kill();
 
-            aimRig.weight = targetRigWeight;
-
-            tweenAim?.Kill(false);
+            bool trueAim = _input.aim && !currentWeapon.reloading;
+            float targetFov = trueAim ? aimFOV : regularFOV;
             tweenAim = DOTween.To(() => playerCamera.m_Lens.FieldOfView, x => playerCamera.m_Lens.FieldOfView = x, targetFov, aimTweenTime);
 
-            _animator.SetBool("Aiming", _input.aim);
-            uiManager.ToggleAim(_input.aim);
+            _animator.SetBool("Aiming", trueAim);
+            uiManager.ToggleAim(trueAim);
+
+            if (currentWeapon.reloading)
+            {
+                return;
+            }
+            float targetRigWeightAim = trueAim ? 1 : 0;
+            float targetRigWeightIdle = trueAim ? 0 : 1;
+
+            aimTween = DOTween.To(() => aimRig.weight, x => aimRig.weight = x, targetRigWeightAim, RIG_TWEEN_TIME);
+            idleTween = DOTween.To(() => idleRig.weight, x => idleRig.weight = x, targetRigWeightIdle, RIG_TWEEN_TIME);
 
             if (CameraManager.instance != null && _input.aim)
             {

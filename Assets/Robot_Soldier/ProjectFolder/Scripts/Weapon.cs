@@ -1,6 +1,8 @@
 using UnityEngine;
 using StarterAssets;
 using DG.Tweening;
+using TMPro;
+using UnityEngine.Animations.Rigging;
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
@@ -14,6 +16,12 @@ public class Weapon : MonoBehaviour
 
     [SerializeField]
     private Transform firePoint;
+
+    [SerializeField]
+    private Animator animator;
+
+    [SerializeField]
+    private Rig rigIdle;
 
     [SerializeField, Range(10, 10000)]
     private float weaponRange;
@@ -33,12 +41,14 @@ public class Weapon : MonoBehaviour
     public int maxClipCapacity;
     public int currentReserveAmmo;
     public int maxAmmoCapacity;
+    public bool reloading { get; private set; }
 
     [SerializeField]
     private LayerMask layerMask;
 
     private CameraManager cameraManager;
     private UiManager uiManager;
+    private const string ANIM_RELOAD_TRIGGER = "Reload";
 
     private void Start()
     {
@@ -58,6 +68,11 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
+        if (reloading)
+        {
+            return;
+        }
+
         if (_input.aim && _input.shoot && cameraManager != null)
         {
 
@@ -99,9 +114,9 @@ public class Weapon : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
-            Reload();
+            ReloadAnim();
         }
     }
 
@@ -118,8 +133,18 @@ public class Weapon : MonoBehaviour
         hp?.ReduceHp(weaponDamage);
     }
 
+    public void ReloadAnim()
+    {
+        reloading = true;
+        Debug.Log($"ReloadStart");
+        rigIdle.weight = 0;
+        animator?.SetTrigger(ANIM_RELOAD_TRIGGER);
+    }
+
     public void Reload()
     {
+        rigIdle.weight = 1;
+
         if (currentReserveAmmo <= 0 || currentAmmo >= maxAmmoCapacity)
         {
             return;
@@ -130,8 +155,11 @@ public class Weapon : MonoBehaviour
         currentAmmo += ammoToReload;
         currentReserveAmmo -= ammoToReload;
 
-        Debug.Log($"Reloaded, ammo reloaded was {ammoToReload}");
+        reloading = false;
+
         uiManager?.SetAmmoCount(currentAmmo, currentReserveAmmo);
+
+        Debug.Log($"ReloadEnd");
     }
 
     public void AddReserveAmmo(int amount)
