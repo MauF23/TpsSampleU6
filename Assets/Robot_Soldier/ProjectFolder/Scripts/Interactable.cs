@@ -1,5 +1,6 @@
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Interactable : MonoBehaviour
     protected ThirdPersonController playerInBounds;
     protected ThirdPersonController playerInRange;
     protected Color debugColor;
+
+    public UnityEvent onRangeEvent, onExitRangeEvent;
 
     protected virtual void Start()
     {
@@ -31,6 +34,7 @@ public class Interactable : MonoBehaviour
     protected void OnTriggerEnter(Collider other)
     {
         other.TryGetComponent<ThirdPersonController>(out playerInBounds);
+        onRangeEvent?.Invoke();
     }
 
     protected void OnTriggerExit(Collider other)
@@ -40,6 +44,8 @@ public class Interactable : MonoBehaviour
         {
             playerInBounds = null;
         }
+
+        onExitRangeEvent?.Invoke();
 
     }
 
