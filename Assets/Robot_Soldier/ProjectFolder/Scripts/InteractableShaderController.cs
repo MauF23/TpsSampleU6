@@ -8,8 +8,9 @@ public class InteractableShaderController : MonoBehaviour
     public List<Renderer> renderers;
     public string propertyFresnelPower;
     public string propertyFresnelColor;
+    public float startValue;
     public float targetValue;
-    private float startValue = 10;
+    public LoopType loopType;
     private float tweenTime = 1;
     private float tweenDelay = 2f;
     private List<Tween> hintTweens = new List<Tween>();
