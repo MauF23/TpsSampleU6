@@ -2761,7 +2761,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: field of view
-      value: 35.86462
+      value: 39.99998
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: far clip plane
@@ -2999,7 +2999,7 @@ PrefabInstance:
       objectReference: {fileID: 8338988565591873055}
     - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_Lens.FieldOfView
-      value: 35.86462
+      value: 39.99998
       objectReference: {fileID: 0}
     - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: CameraSide
@@ -3440,7 +3440,12 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 6e0d2629b9c209f4cb5fed99b8138673, type: 2}
     - target: {fileID: 95812470430208240, guid: 3fc233a9407d11f46a1983e4692babf9, type: 3}
       propertyPath: m_WarningMessage
-      value: 
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'RightArm'\n\tTransform 'LeftHand'\n\tTransform
+        'Spine'\n\tTransform 'RightHand'\n\tTransform 'LeftArm'\n\tTransform 'Hips'\n\tTransform
+        'RightForeArm'\n\tTransform 'LeftForeArm'\n\tTransform 'RightArm'\n\tTransform
+        'LeftHand'\n\tand more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 95812470430208240, guid: 3fc233a9407d11f46a1983e4692babf9, type: 3}
       propertyPath: m_ApplyRootMotion
