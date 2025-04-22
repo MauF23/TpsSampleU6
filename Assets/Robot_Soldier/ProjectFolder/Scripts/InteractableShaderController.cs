@@ -5,12 +5,17 @@ using System.Collections.Generic;
 
 public class InteractableShaderController : MonoBehaviour
 {
+    [Header("Renderer Settings")]
     public List<Renderer> renderers;
     public string propertyFresnelPower;
     public string propertyFresnelColor;
+
+
+    [Header("Shader Values")]
     public float startValue;
     public float targetValue;
     public LoopType loopType;
+
     private float tweenTime = 1;
     private float tweenDelay = 2f;
     private List<Tween> hintTweens = new List<Tween>();
