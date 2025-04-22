@@ -14,7 +14,7 @@ public class AmmoBox : Interactable
         base.Interact();
         sequenceOpenBox?.Kill();
 
-        Action reloadAction = () => Debug.Log("AmmoGiven");
+        Action reloadAction = () => playerInRange.currentWeapon?.AddReserveAmmo(playerInRange.currentWeapon.maxAmmoCapacity);
 
         sequenceOpenBox = DOTween.Sequence();
         sequenceOpenBox.Append(boxLid.DOLocalRotate(tweenDegrees, tweenTime).OnStart(() => reloadAction?.Invoke()).SetEase(Ease.OutBounce)); //OpenBox

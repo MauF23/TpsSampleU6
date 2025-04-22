@@ -1,6 +1,8 @@
 using UnityEngine;
 using StarterAssets;
 using DG.Tweening;
+using TMPro;
+using UnityEngine.Animations.Rigging;
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
@@ -14,6 +16,12 @@ public class Weapon : MonoBehaviour
 
     [SerializeField]
     private Transform firePoint;
+
+    [SerializeField]
+    private Animator animator;
+
+    [SerializeField]
+    private Rig rigIdle, aimIdle;
 
     [SerializeField, Range(10, 10000)]
     private float weaponRange;
@@ -30,13 +38,17 @@ public class Weapon : MonoBehaviour
     private float nextTimeToFire = 0;
 
     public int currentAmmo;
+    public int maxClipCapacity;
     public int currentReserveAmmo;
     public int maxAmmoCapacity;
+    public bool reloading { get; private set; }
 
     [SerializeField]
     private LayerMask layerMask;
 
     private CameraManager cameraManager;
+    private UiManager uiManager;
+    private const string ANIM_RELOAD_TRIGGER = "Reload";
 
     private void Start()
     {
@@ -44,14 +56,38 @@ public class Weapon : MonoBehaviour
         {
             cameraManager = CameraManager.instance;
         }
+
+        if (UiManager.instance != null)
+        {
+            uiManager = UiManager.instance;
+        }
+
+        uiManager?.SetAmmoCount(currentAmmo, currentReserveAmmo);
+
     }
 
     private void Update()
     {
+        if (reloading)
+        {
+            return;
+        }
+
         if (_input.aim && _input.shoot && cameraManager != null)
         {
+
+            if (currentAmmo <= 0)
+            {
+                return;
+            }
+
             if (Time.time >= nextTimeToFire)
             {
+
+                currentAmmo--;
+                currentAmmo = Mathf.Clamp(currentAmmo, 0, maxAmmoCapacity);
+                uiManager.SetAmmoCount(currentAmmo, currentReserveAmmo);
+
                 Vector3 direction = cameraManager.Aim() - (firePoint.position + Spread(currentSpreadRadius));
                 Ray ray = new Ray(firePoint.position, direction);
                 Debug.DrawRay(firePoint.position, direction, Color.red, 2);
@@ -76,7 +112,11 @@ public class Weapon : MonoBehaviour
                 spreadRecovery?.Kill();
                 spreadRecovery = DOTween.To(() => currentSpreadRadius, x => currentSpreadRadius = x, 0, spreadResetTime);
             }
+        }
 
+        if (Input.GetKeyDown(KeyCode.R) && !reloading)
+        {
+            ReloadAnim();
         }
     }
 
@@ -93,22 +133,46 @@ public class Weapon : MonoBehaviour
         hp?.ReduceHp(weaponDamage);
     }
 
+    public void ReloadAnim()
+    {
+        reloading = true;
+        Debug.Log($"ReloadStart");
+        ToggleRigs(false);
+        animator?.SetTrigger(ANIM_RELOAD_TRIGGER);
+    }
+
     public void Reload()
     {
-        if (currentAmmo <= 0)
+        ToggleRigs(true);
+
+        if (currentReserveAmmo <= 0 || currentAmmo >= maxAmmoCapacity)
         {
             return;
         }
 
-        maxAmmoCapacity = Mathf.Clamp(maxAmmoCapacity, 0, currentReserveAmmo);
+        int ammoToReload = maxClipCapacity - currentAmmo;
 
-        int ammoToReload = maxAmmoCapacity - currentReserveAmmo;
         currentAmmo += ammoToReload;
+        currentReserveAmmo -= ammoToReload;
+
+        reloading = false;
+
+        uiManager?.SetAmmoCount(currentAmmo, currentReserveAmmo);
+
+        Debug.Log($"ReloadEnd");
     }
 
     public void AddReserveAmmo(int amount)
     {
-        int clampedAmount = Mathf.Clamp(amount, 0, maxAmmoCapacity);
-        currentReserveAmmo += clampedAmount;
+        currentReserveAmmo += amount;
+        currentReserveAmmo = Mathf.Clamp(currentReserveAmmo, 0, maxAmmoCapacity);
+        uiManager?.SetAmmoCount(currentAmmo, currentReserveAmmo);
+    }
+
+    private void ToggleRigs(bool toggle)
+    {
+        float endValue = toggle ? 1 : 0;
+        rigIdle.weight = endValue;
+        aimIdle.weight = endValue;
     }
 }
