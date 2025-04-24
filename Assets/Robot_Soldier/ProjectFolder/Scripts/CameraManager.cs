@@ -11,13 +11,13 @@ public class CameraManager : MonoBehaviour
     private CinemachineBasicMultiChannelPerlin noise;
     public Transform aimHelper;
     public LayerMask aimLayer;
+    private Vector3 aimDirection;
     private const float DEFAULT_AIM_RANGE = 100;
     private const float SHAKE_DEFAULT_TIME = 0.5f;
-
     private const float DEFAULT_SHAKE_AMP = 0.5f;
     private const float DEFAULT_SHAKE_GAIN = 2;
 
-	public static CameraManager instance;
+    public static CameraManager instance;
     private Sequence cameraShakeTweenSequence;
 
 
@@ -36,12 +36,16 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
-        aimHelper.transform.position = Aim();
+        aimHelper.transform.position = aimDirection;
     }
 
     public Vector3 Aim()
     {
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+
+        Debug.DrawRay(ray.origin, ray.direction.normalized * Vector3.Distance(playerCamera.transform.position, transform.position), Color.blue);
+        aimDirection = ray.GetPoint(DEFAULT_AIM_RANGE);
+
         if (Physics.Raycast(ray, out RaycastHit hit, DEFAULT_AIM_RANGE, aimLayer))
         {
             //Debug.Log($"RayHitted: {hit.transform.name}");
@@ -49,7 +53,7 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
-            return ray.direction * DEFAULT_AIM_RANGE;
+            return aimDirection;
         }
     }
 
@@ -57,12 +61,18 @@ public class CameraManager : MonoBehaviour
     {
         cameraShakeTweenSequence?.Kill();
 
-		noise.m_AmplitudeGain = DEFAULT_SHAKE_AMP;
-		noise.m_FrequencyGain = DEFAULT_SHAKE_GAIN;
+        noise.m_AmplitudeGain = DEFAULT_SHAKE_AMP;
+        noise.m_FrequencyGain = DEFAULT_SHAKE_GAIN;
 
-		cameraShakeTweenSequence = DOTween.Sequence();
-		cameraShakeTweenSequence.Append(DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0, SHAKE_DEFAULT_TIME));
-		cameraShakeTweenSequence.Join(DOTween.To(() => noise.m_FrequencyGain, x => noise.m_FrequencyGain = x, 0, SHAKE_DEFAULT_TIME));
-		cameraShakeTweenSequence.Play();
-	}
+        cameraShakeTweenSequence = DOTween.Sequence();
+        cameraShakeTweenSequence.Append(DOTween.To(() => noise.m_AmplitudeGain, x => noise.m_AmplitudeGain = x, 0, SHAKE_DEFAULT_TIME));
+        cameraShakeTweenSequence.Join(DOTween.To(() => noise.m_FrequencyGain, x => noise.m_FrequencyGain = x, 0, SHAKE_DEFAULT_TIME));
+        cameraShakeTweenSequence.Play();
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(Aim(), 1);
+    }
 }

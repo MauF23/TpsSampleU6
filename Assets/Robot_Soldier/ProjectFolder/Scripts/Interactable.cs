@@ -1,5 +1,6 @@
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
@@ -8,12 +9,14 @@ public class Interactable : MonoBehaviour
     public Collider collider;
     public Vector3 rayOffset;
     public float interactDistance = 1;
-    private float interactRayRadius = 3;
+    protected float interactRayRadius = 3;
     public bool canInteract = true;
-    private RaycastHit hit;
-    private ThirdPersonController playerInBounds;
-    private ThirdPersonController playerInRange;
-    private Color debugColor;
+    protected RaycastHit hit;
+    protected ThirdPersonController playerInBounds;
+    protected ThirdPersonController playerInRange;
+    protected Color debugColor;
+
+    public UnityEvent onRangeEvent, onExitRangeEvent;
 
     protected virtual void Start()
     {
@@ -31,6 +34,7 @@ public class Interactable : MonoBehaviour
     protected void OnTriggerEnter(Collider other)
     {
         other.TryGetComponent<ThirdPersonController>(out playerInBounds);
+        onRangeEvent?.Invoke();
     }
 
     protected void OnTriggerExit(Collider other)
@@ -40,6 +44,8 @@ public class Interactable : MonoBehaviour
         {
             playerInBounds = null;
         }
+
+        onExitRangeEvent?.Invoke();
 
     }
 
