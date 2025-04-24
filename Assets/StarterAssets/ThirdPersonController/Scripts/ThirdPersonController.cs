@@ -307,8 +307,8 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
 
-                _animator.SetFloat(_animIDMoveX, inputDirection.normalized.x);
-                _animator.SetFloat(_animIDMoveZ, inputDirection.normalized.z);
+                _animator.SetFloat(_animIDMoveX, inputDirection.normalized.x, 0.2f, Time.deltaTime);
+                _animator.SetFloat(_animIDMoveZ, inputDirection.normalized.z, 0.2f, Time.deltaTime);
             }
         }
 

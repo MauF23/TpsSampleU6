@@ -1,23 +1,32 @@
 using UnityEngine;
-using DG.Tweening; //Importar DOTWEEN al script
+using DG.Tweening;
+using System;
 
 public class DroneBehavior : MonoBehaviour
 {
     public Transform[] waypoints;
-    public int currentWayPointIndex = 0;
-    public Transform currentWayPoint;
+    private int currentWayPointIndex = 0;
+    private Transform currentWayPoint;
 
-    public float rotateTime, movementTime;
+    public float rotateTime, movementTime, jumpPower;
+    int totalJumps = 1;
 
+    //Declarar la referencia de la secuencia de tweens.
     Sequence sequenceMovement;
 
-    //Suavizado de la rotación.
-    public Ease rotateEase;
+    [SerializeField]
+    Ease easeType;
+
+    [SerializeField]
+    AnimationCurve easeCurve;
+    Tween pathTween;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentWayPoint = waypoints[currentWayPointIndex];
         Movement();
+        //PathMovement();
     }
 
     // Update is called once per frame
@@ -34,18 +43,23 @@ public class DroneBehavior : MonoBehaviour
     }
     public void Movement()
     {
-        sequenceMovement = DOTween.Sequence(); //inicializar la secuencia.
+        sequenceMovement = DOTween.Sequence();
 
-        //Append añade tweens a la secuencia de forma secuencial, es decir se ejecuta cuando TERMINA el anterior.
-        sequenceMovement.Append(transform.DOLookAt(currentWayPoint.position, rotateTime).SetEase(rotateEase));
+        //Append suma tweens a la secuencia de forma secuancial.
+        sequenceMovement.Append(transform.DOLookAt(currentWayPoint.position, rotateTime).SetEase(easeCurve));
 
-        //Join añade tweens a la secuencia de forma paralela, es decir se ejecuta AL MISMO TIEMPO que el anterior.
-        sequenceMovement.Join(transform.DOMove(currentWayPoint.position, movementTime));
+        //Join suna tweens a la secuancia de forma simultánea al tween anterior
+        sequenceMovement.Append(transform.DOJump(currentWayPoint.position, jumpPower, totalJumps, movementTime));
+
 
         sequenceMovement.Play();
-
-        //Obtener el siguiente waypoint al terminar la secuencia.
         sequenceMovement.OnComplete(GetNextWaypoint);
+    }
+
+    public void PathMovement()
+    {
+        pathTween?.Kill(); // detener el tween si ya está iniciado.
+        pathTween = transform.DOPath(WaypointsArray(), movementTime).SetLoops(-1, LoopType.Yoyo).SetLookAt(rotateTime); //-1 indica que el loop es infinito
     }
 
     public void ResumeMovement()
