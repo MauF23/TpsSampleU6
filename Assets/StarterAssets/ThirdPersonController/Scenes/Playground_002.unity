@@ -830,7 +830,7 @@ MonoBehaviour:
   - soundName: 0
     soundClip: {fileID: 8300000, guid: 3bfe5473d7074704bb374d19ea3c6440, type: 3}
     audioMixerGroup: {fileID: 6718624206874014776, guid: 1267ad5fd925355439ac539817d12c3f, type: 2}
-    volume: 0.15
+    volume: 0.071
     pitch: 1
     spatialBlend: 0
     loop: 1
@@ -3755,7 +3755,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: field of view
-      value: 39.99999
+      value: 39.99998
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: far clip plane
@@ -3993,7 +3993,7 @@ PrefabInstance:
       objectReference: {fileID: 8338988565591873055}
     - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_Lens.FieldOfView
-      value: 39.99999
+      value: 39.99998
       objectReference: {fileID: 0}
     - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: CameraSide
@@ -4009,11 +4009,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: e9ce97b7a206dc64d90931ea044e0c72, type: 2}
     - target: {fileID: 2070925442191277753, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_AmplitudeGain
-      value: 0.2550743
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2070925442191277753, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_FrequencyGain
-      value: 1.020297
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2070925442191277753, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_PivotOffset.z
@@ -4775,7 +4775,7 @@ MonoBehaviour:
     soundClip: {fileID: 8300000, guid: e5dc6f3dfff7cc245aa72848ff126825, type: 3}
     audioMixerGroup: {fileID: 5077366430470226952, guid: 1267ad5fd925355439ac539817d12c3f, type: 2}
     volume: 1
-    pitch: 1
+    pitch: 3
     spatialBlend: 1
     loop: 0
     playOnAwake: 0

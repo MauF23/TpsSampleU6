@@ -13,24 +13,24 @@ public class FootstepRay : MonoBehaviour
     {
         SurfaceTypeHolder surfaceTypeHolder = other.transform.GetComponent<SurfaceTypeHolder>();
 
-        if (surfaceTypeHolder == null) 
+        if (surfaceTypeHolder == null)
         {
             return;
         }
 
-        switch(surfaceTypeHolder.surfaceType)
+        switch (surfaceTypeHolder.surfaceType)
         {
-            case SurfacesEnums.Concrete:
-				soundManager.PlayAudioRandomPitch(SoundEnums.Steps, 0.85f, 1.15f);
+			case SurfacesEnums.Concrete:
+				soundManager.PlayAudioRandomPitch(SoundEnums.Steps, 0.85f, 1.25f);
 				break;
 
-            case SurfacesEnums.Rug:
-                soundManager.PlayAudioRandomPitch(SoundEnums.StepsRug, 0.85f, 1.15f);
-                break;
+			case SurfacesEnums.Rug:
+				soundManager.PlayAudioRandomPitch(SoundEnums.StepRug, 0.85f, 1.25f);
+				break;
 
             default:
-				soundManager.PlayAudioRandomPitch(SoundEnums.Steps, 0.85f, 1.15f);
-                break;
+				soundManager.PlayAudioRandomPitch(SoundEnums.Steps, 0.85f, 1.25f);
+				break;
 		}
-	}
+    }
 }
