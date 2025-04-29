@@ -826,15 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f993c717928564cb34e0c44dfe43c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundList:
-  - soundName: 0
-    soundClip: {fileID: 8300000, guid: 3bfe5473d7074704bb374d19ea3c6440, type: 3}
-    audioMixerGroup: {fileID: 2909804548017905414, guid: b3c61dc0a5b5a3849b88563b9b2e8e02, type: 2}
-    volume: 0.5
-    pitch: 1
-    spatialBlend: 0
-    loop: 1
-    playOnAwake: 1
+  soundList: []
 --- !u!4 &273486579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4309191776239800, guid: 3fc233a9407d11f46a1983e4692babf9, type: 3}
@@ -2281,7 +2273,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 8345070700268369568}
     m_Modifications:
     - target: {fileID: 1260501652137496, guid: ba577e1642715534585fb21ba6d0529a, type: 3}
       propertyPath: m_Name
@@ -2377,6 +2369,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.687012, y: 0.047852, z: 4.154785}
   m_Center: {x: -0.021587014, y: 0.021484999, z: 0.0047615767}
+--- !u!4 &934413814 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4068732887779152, guid: ba577e1642715534585fb21ba6d0529a, type: 3}
+  m_PrefabInstance: {fileID: 934413810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &948755557
 GameObject:
   m_ObjectHideFlags: 0
@@ -46565,6 +46562,7 @@ MonoBehaviour:
   animator: {fileID: 1517365144}
   rigIdle: {fileID: 1894695027}
   aimIdle: {fileID: 40486064}
+  soundManagerWeapon: {fileID: 0}
   weaponRange: 100
   spreadRadiusBuildUp: 0.1
   spreadMaxRadius: 5
@@ -46779,6 +46777,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8345070699079395522, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1923025150}
+    - targetCorrespondingSourceObject: {fileID: 8345070699079395522, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 934413814}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8345070700331616361, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
       insertIndex: -1
@@ -46803,4 +46804,3 @@ SceneRoots:
   - {fileID: 1127049071}
   - {fileID: 93099096}
   - {fileID: 245200696}
-  - {fileID: 934413810}

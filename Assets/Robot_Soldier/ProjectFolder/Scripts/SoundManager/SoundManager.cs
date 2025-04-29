@@ -12,26 +12,39 @@ public class SoundManager : MonoBehaviour
 	{
 		audioSourceList.Clear();
 		SetupSounds();
+
+		for (int i = 0; i < soundList.Count; i++)
+		{
+			if (soundList[i].playOnAwake)
+			{
+				PlaySound(soundList[i].soundName);
+			}
+		}
 	}
 
 	public void PlaySound(SoundEnums soundName)
 	{
 		Sound sound = FindSound(soundName);
-		sound.Play();
+		sound?.audioSource?.Play();
 	}
 
 	public void StopSound(SoundEnums soundName)
 	{
 		Sound sound = FindSound(soundName);
-		sound.Pause();
+		sound?.audioSource?.Pause();
 	}
 
 	public void PauseSound(SoundEnums soundName)
 	{
 		Sound sound = FindSound(soundName);
-		sound.Pause();
+		sound?.audioSource?.Pause();
 	}
 
+	/// <summary>
+	/// Encuentra un sonido si el nombre indicado existe
+	/// </summary>
+	/// <param name="soundName">el nombre del sonido a buscar</param>
+	/// <returns>el sonido si es que existe bajo el nombre indicado</returns>
 	private Sound FindSound(SoundEnums soundName)
 	{
 		for (int i = 0; i < soundList.Count; i++)
@@ -44,6 +57,10 @@ public class SoundManager : MonoBehaviour
 
 		return null;
 	}
+
+	/// <summary>
+	/// Función para instancear los audioSources dependiendo de la lista de sonidos especificada.
+	/// </summary>
 	private void SetupSounds()
 	{
 		for (int i = 0; i < soundList.Count; i++)
@@ -66,11 +83,6 @@ public class SoundManager : MonoBehaviour
 			source.pitch = soundList[i].pitch;
 			source.loop = soundList[i].loop;
 			source.playOnAwake = soundList[i].playOnAwake;
-
-			if (soundList[i].playOnAwake)
-			{
-				soundList[i].Play();
-			}
 
 			if (!audioSourceList.Contains(source))
 			{

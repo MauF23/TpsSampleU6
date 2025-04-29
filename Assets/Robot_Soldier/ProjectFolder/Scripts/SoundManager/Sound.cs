@@ -3,6 +3,8 @@ using UnityEngine.Audio;
 using UnityEngine.Rendering;
 
 [System.Serializable]
+
+//Clase para definir sonidos y crear sus audioSources al mismo tiempo.
 public class Sound
 {
 	public SoundEnums soundName;
@@ -22,25 +24,13 @@ public class Sound
 
 	public bool loop, playOnAwake;
 
-
 	public AudioSource audioSource { get { return _audioSource; } set { _audioSource = value; } }
 	private AudioSource _audioSource;
 
-	public void Play()
-	{
-		audioSource?.Play();
-	}
-
-	public void Stop()
-	{
-		audioSource?.Stop();
-	}
-
-	public void Pause()
-	{
-		audioSource?.Pause();
-	}
-
+	/// <summary>
+	/// Función para saber si el sonido tiene un audiosource asignado
+	/// </summary>
+	/// <returns>true si lo tiene, false si no</returns>
 	public bool HasAudioSource()
 	{
 		return audioSource != null;
