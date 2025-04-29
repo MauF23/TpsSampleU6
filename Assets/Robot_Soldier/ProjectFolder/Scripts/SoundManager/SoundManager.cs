@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class SoundManager : MonoBehaviour
 {
 	public List<Sound> soundList;
 	private const float DEFAULT_TWEEN_TIME = 1;
 
-	private void Awake()
+	private void Start()
 	{
 		SetupSounds();
 
@@ -65,22 +66,41 @@ public class SoundManager : MonoBehaviour
 		{
 			AudioSource source;
 
+			source = gameObject.AddComponent<AudioSource>();
+			soundList[i].audioSource = source;
+
+			SetAudioSources(soundList[i].audioSource, soundList[i]);
+		}
+	}
+
+	/// <summary>
+	/// Función para editar en runtime los valores de los sonidos.
+	/// </summary>
+	private void EditSounds()
+	{
+		for (int i = 0; i < soundList.Count; i++)
+		{
 			if (!soundList[i].HasAudioSource())
 			{
-				source = gameObject.AddComponent<AudioSource>();
-				soundList[i].audioSource = source;
-			}
-			else
-			{
-				source = soundList[i].audioSource;
+				return;
 			}
 
-			source.outputAudioMixerGroup = soundList[i].audioMixerGroup;
-			source.clip = soundList[i].soundClip;
-			source.volume = soundList[i].volume;
-			source.pitch = soundList[i].pitch;
-			source.loop = soundList[i].loop;
-			source.playOnAwake = soundList[i].playOnAwake;
+			SetAudioSources(soundList[i].audioSource, soundList[i]);
 		}
+	}
+
+	/// <summary>
+	/// Funcion para setear/actualizar los valores de los audiosources creados.
+	/// </summary>
+	/// <param name="audioSource">el audiosource a modificar</param>
+	/// <param name="souund">el sonido que manipalara los valores del audiosource</param>
+	private void SetAudioSources(AudioSource audioSource, Sound souund)
+	{
+		audioSource.outputAudioMixerGroup = souund.audioMixerGroup;
+		audioSource.clip = souund.soundClip;
+		audioSource.volume = souund.volume;
+		audioSource.pitch = souund.pitch;
+		audioSource.loop = souund.loop;
+		audioSource.playOnAwake = souund.playOnAwake;
 	}
 }
