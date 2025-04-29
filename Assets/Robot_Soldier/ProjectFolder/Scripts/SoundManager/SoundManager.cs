@@ -5,7 +5,6 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
 	public List<Sound> soundList;
-	private List<AudioSource> audioSourceList = new List<AudioSource>();
 	private const float DEFAULT_TWEEN_TIME = 1;
 
 	private void Awake()
@@ -83,11 +82,6 @@ public class SoundManager : MonoBehaviour
 			source.pitch = soundList[i].pitch;
 			source.loop = soundList[i].loop;
 			source.playOnAwake = soundList[i].playOnAwake;
-
-			if (!audioSourceList.Contains(source))
-			{
-				audioSourceList.Add(source);	
-			}
 		}
 	}
 }
