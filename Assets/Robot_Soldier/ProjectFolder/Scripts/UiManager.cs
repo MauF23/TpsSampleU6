@@ -80,7 +80,7 @@ public class UiManager : MonoBehaviour
 		paused = revealed;
 		float endValue = revealed ? 1 : 0;
 		Time.timeScale = paused ? 0 : 1;
-		Cursor.lockState = paused ? CursorLockMode.Confined : CursorLockMode.Locked;
+		Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
 
 		canvasGroup.DOFade(endValue, TWEEN_TIME).OnComplete(() =>
 		{
