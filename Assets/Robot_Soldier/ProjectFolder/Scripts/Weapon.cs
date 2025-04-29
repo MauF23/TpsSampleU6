@@ -105,7 +105,12 @@ public class Weapon : MonoBehaviour
                 }
 
                 cameraManager?.ShakeCam();
-                particleMuzzleFlash?.Play();
+
+                soundManagerWeapon.PlayAudioRandomPitch(SoundEnums.Shoot, 0.85f, 1.15f);
+
+                soundManagerWeapon.PlaySoundWithRandomVolume(SoundEnums.Shoot);
+
+				particleMuzzleFlash?.Play();
                 nextTimeToFire = Time.time + fireRate;
                 currentSpreadRadius += spreadRadiusBuildUp;
             }

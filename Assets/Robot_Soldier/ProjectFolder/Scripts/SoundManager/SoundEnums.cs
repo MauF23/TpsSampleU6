@@ -3,5 +3,6 @@ public enum SoundEnums
 	BgMusic,
 	PauseMusic,
 	Shoot,
-	Steps
+	Steps,
+	StepsRug
 }

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class FootstepRay : MonoBehaviour
 {
-    public float rayLenght;
     public SoundManager soundManager;
 
     void Start()
@@ -14,9 +13,24 @@ public class FootstepRay : MonoBehaviour
     {
         SurfaceTypeHolder surfaceTypeHolder = other.transform.GetComponent<SurfaceTypeHolder>();
 
-        if (surfaceTypeHolder != null) 
+        if (surfaceTypeHolder == null) 
         {
-            Debug.Log($"<color=lime>hittedSurface: {other.transform.name} with Type {surfaceTypeHolder.surfaceType}</color>");
+            return;
         }
+
+        switch(surfaceTypeHolder.surfaceType)
+        {
+            case SurfacesEnums.Concrete:
+				soundManager.PlayAudioRandomPitch(SoundEnums.Steps, 0.85f, 1.15f);
+				break;
+
+            case SurfacesEnums.Rug:
+                soundManager.PlayAudioRandomPitch(SoundEnums.StepsRug, 0.85f, 1.15f);
+                break;
+
+            default:
+				soundManager.PlayAudioRandomPitch(SoundEnums.Steps, 0.85f, 1.15f);
+                break;
+		}
 	}
 }
