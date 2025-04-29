@@ -23,6 +23,9 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private Rig rigIdle, aimIdle;
 
+    [SerializeField]
+    private SoundManager soundManagerWeapon;
+
     [SerializeField, Range(10, 10000)]
     private float weaponRange;
 
@@ -139,7 +142,7 @@ public class Weapon : MonoBehaviour
         Debug.Log($"ReloadStart");
         ToggleRigs(false);
         animator?.SetTrigger(ANIM_RELOAD_TRIGGER);
-    }
+	}
 
     public void Reload()
     {
