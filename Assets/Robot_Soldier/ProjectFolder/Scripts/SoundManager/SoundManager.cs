@@ -9,7 +9,6 @@ public class SoundManager : MonoBehaviour
 
 	private void Awake()
 	{
-		audioSourceList.Clear();
 		SetupSounds();
 
 		for (int i = 0; i < soundList.Count; i++)
