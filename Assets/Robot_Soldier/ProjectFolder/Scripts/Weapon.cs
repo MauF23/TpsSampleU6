@@ -23,6 +23,9 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private Rig rigIdle, aimIdle;
 
+    [SerializeField]
+    private SoundManager soundManagerWeapon;
+
     [SerializeField, Range(10, 10000)]
     private float weaponRange;
 
@@ -102,7 +105,10 @@ public class Weapon : MonoBehaviour
                 }
 
                 cameraManager?.ShakeCam();
-                particleMuzzleFlash?.Play();
+
+                soundManagerWeapon.PlayAudioRandomPitch(SoundEnums.Shoot, 0.75f, 1.20f);
+
+				particleMuzzleFlash?.Play();
                 nextTimeToFire = Time.time + fireRate;
                 currentSpreadRadius += spreadRadiusBuildUp;
             }
@@ -139,7 +145,7 @@ public class Weapon : MonoBehaviour
         Debug.Log($"ReloadStart");
         ToggleRigs(false);
         animator?.SetTrigger(ANIM_RELOAD_TRIGGER);
-    }
+	}
 
     public void Reload()
     {
