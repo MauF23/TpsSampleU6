@@ -22,7 +22,7 @@ public class Sound
 	[Range(0, 1)]
 	public float spatialBlend;
 
-	public bool loop, playOnAwake;
+	public bool loop, playOnAwake, FadeInOnAwake;
 
 	public AudioSource audioSource { get { return _audioSource; } set { _audioSource = value; } }
 	private AudioSource _audioSource;

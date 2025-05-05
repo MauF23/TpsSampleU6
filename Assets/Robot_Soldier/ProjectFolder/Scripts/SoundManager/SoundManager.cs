@@ -8,9 +8,6 @@ public class SoundManager : MonoBehaviour
 {
 	public List<Sound> soundList;
 	private const float DEFAULT_TWEEN_TIME = 3;
-	private const float VOLUME_MULTIPLIER_MIN = 0.5f;
-	private const float VOLUME_MULTIPLIER_MAX = 1;
-
 
 	private void OnValidate()
 	{
@@ -31,82 +28,16 @@ public class SoundManager : MonoBehaviour
 				PlaySound(soundList[i].soundName);
 			}
 		}
-
-		FadeSoundIn(SoundEnums.BgMusic);
 	}
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Tab))
-		{
-			FadeSoundOut(SoundEnums.BgMusic);
-		}
-	}
+	//private void Update()
+	//{
+	//}
 
 	public void PlaySound(SoundEnums soundName)
 	{
 		Sound sound = FindSound(soundName);
 		sound?.audioSource?.Play();
-	}
-
-	/// <summary>
-	/// Reproduce un sonido variando el pitch en un rango establecido, haciendo que el sonido varie ligeramente
-	/// </summary>
-	/// <param name="soundName">el enumerador del sonido a reproducir</param>
-	/// <param name="minPitch">el rango mínmo del pitch mínimo</param>
-	/// <param name="maxPitch">el rando máximo del pitch</param>
-	public void PlayAudioRandomPitch(SoundEnums soundName, float minPitch, float maxPitch)
-	{
-		Sound sound = FindSound(soundName);
-
-		if(sound == null)
-		{
-			return;
-		}
-
-		sound.audioSource.pitch = Random.Range(minPitch, maxPitch);	
-		sound.audioSource.Play();
-	}
-
-	public void PlaySoundWithRandomVolume(SoundEnums soundName)
-	{
-		Sound sound = FindSound(soundName);
-
-		if (sound == null)
-		{
-			return;
-		}
-
-		float randomMultiplier = Random.Range(VOLUME_MULTIPLIER_MIN, VOLUME_MULTIPLIER_MAX);
-
-		sound.audioSource.volume = sound.volume * randomMultiplier;
-		sound.audioSource.Play();
-	}
-
-
-	public void FadeSoundIn(SoundEnums soundName)
-	{
-		Sound sound = FindSound(soundName);
-
-		if(sound == null)
-		{
-			return;
-		}
-
-		sound.audioSource.volume = 0;
-		sound.audioSource.DOFade(sound.volume, DEFAULT_TWEEN_TIME);
-	}
-
-	public void FadeSoundOut(SoundEnums soundName)
-	{
-		Sound sound = FindSound(soundName);
-
-		if (sound == null)
-		{
-			return;
-		}
-
-		sound.audioSource.DOFade(0, DEFAULT_TWEEN_TIME);
 	}
 
 	public void StopSound(SoundEnums soundName)
