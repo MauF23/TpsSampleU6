@@ -11,13 +11,14 @@ public class SoundManager : MonoBehaviour
 
 	private void OnValidate()
 	{
+		//Debug.Log("Waza");
 		if (Application.isPlaying)
 		{
 			EditSounds();
 		}
 	}
 
-	private void Start()
+	private void Awake()
 	{
 		SetupSounds();
 
@@ -37,13 +38,45 @@ public class SoundManager : MonoBehaviour
 	public void PlaySound(SoundEnums soundName)
 	{
 		Sound sound = FindSound(soundName);
-		sound?.audioSource?.Play();
+        sound?.audioSource?.Play();
+	}
+
+	public void FadeSound(SoundEnums soundName, float tweenDuration, bool fadeIn)
+	{
+		Sound sound = FindSound(soundName);
+		float targetVolume = 0;
+
+		if (sound != null)
+		{
+			if (fadeIn)
+			{
+				sound.audioSource.volume = 0;
+				PlaySound(sound.soundName);
+			}
+
+			targetVolume = fadeIn ? sound.volume : 0;
+
+			sound.audioSource.DOFade(targetVolume, tweenDuration);
+			
+		}
+	}
+
+	public void PlaySoundRandomPitch(SoundEnums soundName, float minPitch, float maxPitch)
+	{
+		Sound sound = FindSound(soundName);
+
+		if(sound != null)
+		{
+			float randomPitch = Random.Range(minPitch, maxPitch);
+			sound.audioSource.pitch = randomPitch;
+			PlaySound(soundName);
+		}
 	}
 
 	public void StopSound(SoundEnums soundName)
 	{
 		Sound sound = FindSound(soundName);
-		sound?.audioSource?.Pause();
+		sound?.audioSource?.Stop();
 	}
 
 	public void PauseSound(SoundEnums soundName)

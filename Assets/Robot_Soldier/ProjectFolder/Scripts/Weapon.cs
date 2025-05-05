@@ -106,7 +106,7 @@ public class Weapon : MonoBehaviour
 
                 cameraManager?.ShakeCam();
 
-
+                soundManagerWeapon.PlaySoundRandomPitch(SoundEnums.Shoot, 0.75f, 1.30f);
 
 				particleMuzzleFlash?.Play();
                 nextTimeToFire = Time.time + fireRate;
