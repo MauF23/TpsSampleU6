@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: m_MetalPlate
-  m_Shader: {fileID: 4800000, guid: 0e9d5a909a1f7e84882a534d0d11e49f, type: 3}
+  m_Name: M_AmmoBox
+  m_Shader: {fileID: -6465566751694194690, guid: 0ba15816b8077e44b8f8bc3eeb88919a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -24,28 +24,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 94be8e8aa94ecf04296c8e3d34892819, type: 3}
+    - _ColorMap:
+        m_Texture: {fileID: 2800000, guid: 0837a3a7e417de6408b0051b487f4216, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
+    - _EmmisiveMap:
+        m_Texture: {fileID: 2800000, guid: 33c083ee20e324a4dbed64f6557312f2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f07176cfb56086544ada351ffe334a65, type: 3}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 1fb04d55417513b4b9a2137fbe25ecf3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 98b44d2c080665845b134b608f0d573e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: a0b86068c96ec7648bd90fd5e0fab07f, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: e6c8e95ed7c1a2f48a440b5d4fa882fb, type: 3}
+    - _SpecularMap:
+        m_Texture: {fileID: 2800000, guid: eac5bdf99905f304c87c6dec27664b91, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -62,24 +54,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Glossiness: 1
-    - _Metallic: 0
+    - _FresnelPower: 3
+    - _FresnelPowerMax: 10
+    - _FresnelPowerMin: 6
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _UseAoMap: 1
-    - _UseColorMap: 1
-    - _UseEmissiveMap: 0
-    - _UseMetallicMap: 1
-    - _UseNormalMap: 1
-    - _UseRoughnessMap: 1
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _UvOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _UvTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _EmisionTint: {r: 89.45409, g: 14.435445, b: 0, a: 1}
+    - _FresnelColor: {r: 0.7169812, g: 0.5230339, b: 0.043965846, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &9065381562716055364
+--- !u!114 &1685283578470484414
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
