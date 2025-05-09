@@ -23,6 +23,8 @@ public class Sound
 	[Range(0, 1)]
 	public float spatialBlend;
 
+	public float minDistance = 1, maxDistance = 10;
+
 	public bool loop, playOnAwake;
 
 	public AudioSource audioSource { get { return _audioSource; } set { _audioSource = value; } }
@@ -43,8 +45,11 @@ public class Sound
 		audioSource.clip = soundClip;
 		audioSource.volume = volume;
 		audioSource.pitch = pitch;
+		audioSource.spatialBlend = spatialBlend;
 		audioSource.loop = loop;
 		audioSource.playOnAwake = playOnAwake;
+		audioSource.minDistance = minDistance;
+		audioSource.maxDistance = maxDistance;
 	}
 }
 
