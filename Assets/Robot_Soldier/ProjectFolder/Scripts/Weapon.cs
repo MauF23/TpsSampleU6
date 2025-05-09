@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private SoundManager soundManager;
 
-	private CameraManager cameraManager;
+    private CameraManager cameraManager;
     private UiManager uiManager;
     private const string ANIM_RELOAD_TRIGGER = "Reload";
 
@@ -106,9 +106,9 @@ public class Weapon : MonoBehaviour
 
                 cameraManager?.ShakeCam();
 
-                soundManager.PlaySound("");
+                soundManager.PlayRandomPitch("Shoot", 0.75f, 1.25f);
 
-				particleMuzzleFlash?.Play();
+                particleMuzzleFlash?.Play();
                 nextTimeToFire = Time.time + fireRate;
                 currentSpreadRadius += spreadRadiusBuildUp;
             }

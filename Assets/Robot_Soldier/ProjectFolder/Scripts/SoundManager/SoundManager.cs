@@ -36,6 +36,45 @@ public class SoundManager : MonoBehaviour
 		sound?.audioSource?.Play();
 	}
 
+	public void FadeIn(string soundName)
+	{
+		Sound sound = FindSound(soundName);
+
+		if (sound == null)
+		{
+			return;
+		}
+
+		sound.audioSource.volume = 0;
+		sound.audioSource.DOFade(sound.volume, DEFAULT_TWEEN_TIME);
+		PlaySound(soundName);
+	}
+
+	public void FadeOut(string soundName)
+	{
+		Sound sound = FindSound(soundName);
+
+		if (sound == null)
+		{
+			return;
+		}
+
+		sound.audioSource.DOFade(0, DEFAULT_TWEEN_TIME).SetUpdate(true);
+	}
+
+	public void PlayRandomPitch(string soundName, float minPitch, float maxPitch)
+	{
+		Sound sound = FindSound(soundName);
+
+		if (sound == null)
+		{
+			return;
+		}
+
+		sound.audioSource.pitch = Random.Range(minPitch, maxPitch);
+		PlaySound(soundName);
+	}
+
 	public void StopSound(string soundName)
 	{
 		Sound sound = FindSound(soundName);
@@ -67,7 +106,7 @@ public class SoundManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Función para instancear los audioSources dependiendo de la lista de sonidos especificada.
+	/// Funciï¿½n para instancear los audioSources dependiendo de la lista de sonidos especificada.
 	/// </summary>
 	private void SetupSounds()
 	{
@@ -83,7 +122,7 @@ public class SoundManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Función para editar en runtime los valores de los sonidos.
+	/// Funciï¿½n para editar en runtime los valores de los sonidos.
 	/// </summary>
 	private void EditSounds()
 	{
