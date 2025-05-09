@@ -14,11 +14,11 @@ public class FootstepRay : MonoBehaviour
         switch (other.tag)
         {
 			case "Concrete":
-				soundManager.PlaySound(SoundEnums.Steps);
+				soundManager.PlaySound("");
 				break;
 
 			case "Rug":
-				soundManager.PlaySound(SoundEnums.StepRug);
+				soundManager.PlaySound("");
 				break;
 		}
     }

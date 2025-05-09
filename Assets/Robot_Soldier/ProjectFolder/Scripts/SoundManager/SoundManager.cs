@@ -30,19 +30,19 @@ public class SoundManager : MonoBehaviour
 		}
 	}
 
-	public void PlaySound(SoundEnums soundName)
+	public void PlaySound(string soundName)
 	{
 		Sound sound = FindSound(soundName);
 		sound?.audioSource?.Play();
 	}
 
-	public void StopSound(SoundEnums soundName)
+	public void StopSound(string soundName)
 	{
 		Sound sound = FindSound(soundName);
 		sound?.audioSource?.Pause();
 	}
 
-	public void PauseSound(SoundEnums soundName)
+	public void PauseSound(string soundName)
 	{
 		Sound sound = FindSound(soundName);
 		sound?.audioSource?.Pause();
@@ -53,7 +53,7 @@ public class SoundManager : MonoBehaviour
 	/// </summary>
 	/// <param name="soundName">el nombre del sonido a buscar</param>
 	/// <returns>el sonido si es que existe bajo el nombre indicado</returns>
-	private Sound FindSound(SoundEnums soundName)
+	private Sound FindSound(string soundName)
 	{
 		for (int i = 0; i < soundList.Count; i++)
 		{

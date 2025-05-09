@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 //Clase para definir sonidos y crear sus audioSources al mismo tiempo.
 public class Sound
 {
-	public SoundEnums soundName;
+	public string soundName;
 
 	public AudioClip soundClip;
 
