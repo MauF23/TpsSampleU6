@@ -41,6 +41,11 @@ public class CameraManager : MonoBehaviour
 
     public Vector3 Aim()
     {
+        if (!Application.isPlaying)
+        {
+            return Vector3.zero;
+        }
+
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
 
         Debug.DrawRay(ray.origin, ray.direction.normalized * Vector3.Distance(playerCamera.transform.position, transform.position), Color.blue);

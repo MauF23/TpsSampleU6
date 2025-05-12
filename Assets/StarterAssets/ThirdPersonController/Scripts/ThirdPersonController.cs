@@ -132,6 +132,9 @@ namespace StarterAssets
 
         private bool _hasAnimator;
 
+        [HideInInspector]
+        public  bool blockInput = false;
+
         private bool IsCurrentDeviceMouse
         {
             get
@@ -181,6 +184,11 @@ namespace StarterAssets
         {
             //_hasAnimator = TryGetComponent(out _animator);
 
+            if (blockInput)
+            {
+                return;
+            }
+
             JumpAndGravity();
             GroundedCheck();
             Move();
@@ -189,7 +197,12 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            CameraRotation();
+			if (blockInput)
+			{
+				return;
+			}
+
+			CameraRotation();
         }
 
         private void AssignAnimationIDs()
@@ -423,6 +436,13 @@ namespace StarterAssets
         {
             _playerInput.enabled = !blocked;
         }
+
+        public void BlockInputs(bool blocked)
+        {
+            blockInput = blocked;
+            _playerInput.enabled = !blocked;
+
+		}
 
         public void Rotation(Vector2 target, bool smoothRotation)
         {

@@ -8,7 +8,10 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private StarterAssetsInputs _input;
 
-    [SerializeField]
+	[SerializeField]
+	private ThirdPersonController thirdPersonController;
+
+	[SerializeField]
     private ParticleSystem particleMuzzleFlash;
 
     [SerializeField]
@@ -71,7 +74,7 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        if (reloading)
+        if (reloading || thirdPersonController.blockInput)
         {
             return;
         }

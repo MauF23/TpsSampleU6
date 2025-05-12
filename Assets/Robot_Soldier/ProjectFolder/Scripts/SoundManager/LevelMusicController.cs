@@ -6,7 +6,7 @@ public class LevelMusicController : MonoBehaviour
 
 	private void Start()
 	{
-		soundManagerGeneral.FadeSound(SoundEnums.BgMusic, 3, true);
+		//soundManagerGeneral.FadeSound(SoundEnums.BgMusic, 3, true);
 	}
 
 	private void Update()
