@@ -5,7 +5,7 @@ public class LevelMusicController : MonoBehaviour
     public SoundManager soundManager;
     void Start()
     {
-        soundManager.FadeIn("BGMusic");
+        //soundManager.FadeIn("BGMusic");
     }
 
     /*void Update()
