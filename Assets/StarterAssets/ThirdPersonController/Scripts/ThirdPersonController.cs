@@ -91,6 +91,7 @@ namespace StarterAssets
         private Tween tweenAim;
         private UiManager uiManager;
         public Weapon currentWeapon;
+        private bool inputsBlocked = false;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -179,7 +180,10 @@ namespace StarterAssets
 
         private void Update()
         {
-            //_hasAnimator = TryGetComponent(out _animator);
+            if (inputsBlocked)
+            {
+                return;
+            }
 
             JumpAndGravity();
             GroundedCheck();
@@ -189,7 +193,12 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            CameraRotation();
+			if (inputsBlocked)
+			{
+				return;
+			}
+
+			CameraRotation();
         }
 
         private void AssignAnimationIDs()
@@ -423,6 +432,11 @@ namespace StarterAssets
         {
             _playerInput.enabled = !blocked;
         }
+
+        public void BlockPlayerInput(bool blockInputs)
+        {
+            inputsBlocked = blockInputs;
+		}
 
         public void Rotation(Vector2 target, bool smoothRotation)
         {
