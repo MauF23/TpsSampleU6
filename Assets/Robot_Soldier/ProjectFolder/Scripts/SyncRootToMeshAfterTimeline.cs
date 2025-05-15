@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class SyncRootToMeshAfterTimeline : MonoBehaviour
 {
-	public PlayableDirector timeline;
 	public Transform meshTransform;
 
 	private Vector3 finalRootPosition;
