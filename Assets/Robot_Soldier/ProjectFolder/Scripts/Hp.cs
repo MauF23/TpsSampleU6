@@ -58,4 +58,9 @@ public class Hp : MonoBehaviour
 		onReviveEvent?.Invoke();
 
 	}
+
+	public bool Alive()
+	{
+		return currentHp > 0;	
+	}
 }
