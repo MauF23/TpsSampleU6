@@ -4,7 +4,7 @@ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using DG.Tweening;
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine.Animations.Rigging;
 #endif
 
@@ -81,7 +81,7 @@ namespace StarterAssets
         public bool LockCameraPosition = false;
 
         [Header("CinemachineAim")]
-        public CinemachineVirtualCamera playerCamera;
+        public CinemachineCamera playerCamera;
         public float regularFOV;
         public float aimFOV;
         public float aimTweenTime;
@@ -396,7 +396,7 @@ namespace StarterAssets
 
             bool trueAim = _input.aim && !currentWeapon.reloading;
             float targetFov = trueAim ? aimFOV : regularFOV;
-            tweenAim = DOTween.To(() => playerCamera.m_Lens.FieldOfView, x => playerCamera.m_Lens.FieldOfView = x, targetFov, aimTweenTime);
+            tweenAim = DOTween.To(() => playerCamera.Lens.FieldOfView, x => playerCamera.Lens.FieldOfView = x, targetFov, aimTweenTime);
 
             _animator.SetBool("Aiming", trueAim);
             uiManager.ToggleAim(trueAim);
