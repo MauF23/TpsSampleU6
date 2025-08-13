@@ -14,6 +14,7 @@ public class Hp : MonoBehaviour
 	public GameObject visualReferenceGameObject;
 
 	protected int currentHp;
+	protected Coroutine instanceFxRoutine;
 
 	protected virtual void Start()
 	{
@@ -62,5 +63,12 @@ public class Hp : MonoBehaviour
 	public bool Alive()
 	{
 		return currentHp > 0;	
+	}
+
+	protected IEnumerator InstanceGameObjectRoutine(float waitTime, GameObject gameobjectFX)
+	{
+		yield return new WaitForSeconds(waitTime);
+		Instantiate(gameobjectFX, transform.position, Quaternion.identity);
+		visualReferenceGameObject.SetActive(false);
 	}
 }

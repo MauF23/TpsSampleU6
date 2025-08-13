@@ -16,11 +16,6 @@ public class EnemyVision : MonoBehaviour
 	UnityEvent onSeeEvent;
 	private Ray visionRay;
 
-	void Start()
-	{
-
-	}
-
 	// Update is called once per frame
 	void Update()
 	{

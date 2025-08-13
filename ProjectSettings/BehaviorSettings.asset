@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GraphOwnerName: Self
   m_AutoSaveLastSaveLocation: 1
-  m_SaveFolder: Robot_Soldier/ProjectFolder/Scripts
+  m_SaveFolder: Robot_Soldier/ProjectFolder/Scripts/CustomBehaviors
   m_UseSeparateSaveFolders: 0
   m_SaveFolderAction: 
   m_SaveFolderModifier: 
