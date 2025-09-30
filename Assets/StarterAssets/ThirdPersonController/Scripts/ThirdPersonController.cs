@@ -122,7 +122,11 @@ namespace StarterAssets
 
         [SerializeField]
         private Animator _animator;
-        private CharacterController _controller;
+
+        [SerializeField]
+        private AnimatorManager animatorManager;
+
+		private CharacterController _controller;
 
         [HideInInspector]
         public StarterAssetsInputs _input;
@@ -214,8 +218,10 @@ namespace StarterAssets
             // update animator if using character
             if (_hasAnimator)
             {
-                _animator.SetBool(_animIDGrounded, Grounded);
-            }
+                //_animator.SetBool(_animIDGrounded, Grounded);
+                animatorManager.Grounded(Grounded);
+
+			}
         }
 
         private void CameraRotation()
@@ -304,11 +310,7 @@ namespace StarterAssets
             // update animator if using character
             if (_hasAnimator)
             {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-
-                _animator.SetFloat(_animIDMoveX, inputDirection.normalized.x, 0.1f, Time.deltaTime);
-                _animator.SetFloat(_animIDMoveZ, inputDirection.normalized.z, 0.1f, Time.deltaTime);
+                animatorManager.SetMovement(inputDirection, _speed);
             }
         }
 
@@ -322,8 +324,8 @@ namespace StarterAssets
                 // update animator if using character
                 if (_hasAnimator)
                 {
-                    _animator.SetBool(_animIDJump, false);
-                    _animator.SetBool(_animIDFreeFall, false);
+                    animatorManager.Jump(false);
+					animatorManager.Falling(false);
                 }
 
                 // stop our velocity dropping infinitely when grounded
@@ -341,8 +343,8 @@ namespace StarterAssets
                     // update animator if using character
                     if (_hasAnimator)
                     {
-                        _animator.SetBool(_animIDJump, true);
-                    }
+						animatorManager.Jump(true);
+					}
                 }
 
                 // jump timeout
@@ -366,8 +368,8 @@ namespace StarterAssets
                     // update animator if using character
                     if (_hasAnimator)
                     {
-                        _animator.SetBool(_animIDFreeFall, true);
-                    }
+						animatorManager.Falling(true);
+					}
                 }
 
                 // if we are not grounded, do not jump
