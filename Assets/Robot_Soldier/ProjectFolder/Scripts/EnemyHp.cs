@@ -21,6 +21,8 @@ public class EnemyHp : Hp
 			return;
 		}
 
+		graphAgent.SetVariableValue(ENEMY_STATE_VARIABLE, EnemyState.Stunned);
+
 		base.ReduceHp(amount);
 
 		if (!Alive())
@@ -50,7 +52,7 @@ public class EnemyHp : Hp
 		{
 			EnemyState value = (EnemyState)enemyState.ObjectValue;
 
-			if(value == EnemyState.Aggro || value == EnemyState.Attack || value == EnemyState.Death)
+			if(value == EnemyState.Aggro || value == EnemyState.Attack || value == EnemyState.Stunned || value == EnemyState.Death)
 			{
 				return true;
 			}

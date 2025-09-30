@@ -10,12 +10,14 @@ public class UiManager : MonoBehaviour
 {
 	public CanvasGroup canvasGroup;
 	public CanvasGroup[] uiElements;
+	public CanvasGroup interactionIcon;
 	public Button buttonResume;
 	public Image aimImage;
 	public Sequence tweenUiSequence;
 	public PlayerInput playerInput;
 	public ThirdPersonController thirdPersonController;
 	public Ease easeType;
+	private Tween interactionTween;
 
 	[Header("WeponUI")]
 	public TextMeshProUGUI textAmmoCount;
@@ -54,6 +56,7 @@ public class UiManager : MonoBehaviour
 		canvasGroup.interactable = false;
 		canvasGroup.blocksRaycasts = false;
 		aimImage.DOFade(0, 0);
+		interactionIcon.DOFade(0, 0);
 		HideUiElements();
 		buttonResume?.onClick.AddListener(() => { DisplayPause(false); });
 	}
@@ -92,6 +95,13 @@ public class UiManager : MonoBehaviour
 
 		canvasGroup.interactable = revealed;
 		canvasGroup.blocksRaycasts = revealed;
+	}
+
+	public void DisplayInteraction(bool display)
+	{
+		int endValue = display ? 1 : 0;
+		interactionTween?.Kill();
+		interactionTween = interactionIcon?.DOFade(endValue, TWEEN_TIME);	
 	}
 
 	private void TweenUI()

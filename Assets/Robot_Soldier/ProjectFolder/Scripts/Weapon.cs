@@ -46,7 +46,10 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
 
-    private CameraManager cameraManager;
+	[SerializeField]
+    private SoundManager soundManager;  
+
+	private CameraManager cameraManager;
     private UiManager uiManager;
     private const string ANIM_RELOAD_TRIGGER = "Reload";
 
@@ -84,7 +87,9 @@ public class Weapon : MonoBehaviour
             if (Time.time >= nextTimeToFire)
             {
 
-                currentAmmo--;
+                soundManager?.CloneAudioSource("Rifle");         
+
+				currentAmmo--;
                 currentAmmo = Mathf.Clamp(currentAmmo, 0, maxAmmoCapacity);
                 uiManager.SetAmmoCount(currentAmmo, currentReserveAmmo);
 

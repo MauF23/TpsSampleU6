@@ -10,10 +10,9 @@ public class MeleeHitbox : MonoBehaviour
 		Collider[] colliders = Physics.OverlapSphere(transform.position, hitRadius, hitMask);
 		for (int i = 0; i < colliders.Length; i++)
 		{
-			if (colliders[i].transform.CompareTag("Player"))
-			{
-				CameraManager.instance?.ShakeCam();
-			}
+			CameraManager.instance?.ShakeCam();
+			Hp hp = colliders[i].GetComponent<Hp>();
+			hp?.ReduceHp(0);
 		}
 	}
 

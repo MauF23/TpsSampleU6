@@ -7,5 +7,6 @@ public enum EnemyState
     Patrol,
 	Aggro,
 	Attack,
+	Stunned,
 	Death
 }

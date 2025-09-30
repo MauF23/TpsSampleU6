@@ -4,6 +4,7 @@ using UnityEngine;
 public class AnimEventsWrapper : MonoBehaviour
 {
     public ThirdPersonController thirdPersonController;
+    public SoundManager soundManager;
 
     public void ReloadEvent()
     {
@@ -13,6 +14,8 @@ public class AnimEventsWrapper : MonoBehaviour
         }
 
         thirdPersonController.currentWeapon?.Reload();
-        Debug.Log($"ReloadEvent Triggered");
+        soundManager.PlaySound("Reload");
+
+		Debug.Log($"ReloadEvent Triggered");
     }
 }
