@@ -177,6 +177,12 @@ public class Weapon : MonoBehaviour
     private void ToggleRigs(bool toggle)
     {
         float endValue = toggle ? 1 : 0;
+
+        if(rigIdle == null || aimIdle == null)
+        {
+            return;
+        }
+
         rigIdle.weight = endValue;
         aimIdle.weight = endValue;
     }

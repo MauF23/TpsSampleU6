@@ -307,8 +307,8 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
 
-                _animator.SetFloat(_animIDMoveX, inputDirection.normalized.x);
-                _animator.SetFloat(_animIDMoveZ, inputDirection.normalized.z);
+                _animator.SetFloat(_animIDMoveX, inputDirection.normalized.x, 0.1f, Time.deltaTime);
+                _animator.SetFloat(_animIDMoveZ, inputDirection.normalized.z, 0.1f, Time.deltaTime);
             }
         }
 
@@ -469,24 +469,24 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
-        private void OnFootstep(AnimationEvent animationEvent)
-        {
-            // if (animationEvent.animatorClipInfo.weight > 0.5f)
-            // {
-            //     if (FootstepAudioClips.Length > 0)
-            //     {
-            //         var index = Random.Range(0, FootstepAudioClips.Length);
-            //         AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-            //     }
-            // }
-        }
+        //private void OnFootstep(AnimationEvent animationEvent)
+        //{
+        //    // if (animationEvent.animatorClipInfo.weight > 0.5f)
+        //    // {
+        //    //     if (FootstepAudioClips.Length > 0)
+        //    //     {
+        //    //         var index = Random.Range(0, FootstepAudioClips.Length);
+        //    //         AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+        //    //     }
+        //    // }
+        //}
 
-        private void OnLand(AnimationEvent animationEvent)
-        {
-            // if (animationEvent.animatorClipInfo.weight > 0.5f)
-            // {
-            //     AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
-            // }
-        }
+        //private void OnLand(AnimationEvent animationEvent)
+        //{
+        //    // if (animationEvent.animatorClipInfo.weight > 0.5f)
+        //    // {
+        //    //     AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+        //    // }
+        //}
     }
 }
