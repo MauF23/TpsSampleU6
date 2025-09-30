@@ -34610,7 +34610,7 @@ GameObject:
   - component: {fileID: 1762967456}
   - component: {fileID: 1762967457}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Constrain_RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34647,10 +34647,10 @@ MonoBehaviour:
   m_Data:
     m_ConstrainedObject: {fileID: 259243208}
     m_SourceObjects:
-      m_Length: 0
+      m_Length: 1
       m_Item0:
-        transform: {fileID: 0}
-        weight: 0
+        transform: {fileID: 834730737}
+        weight: 1
       m_Item1:
         transform: {fileID: 0}
         weight: 0
@@ -34676,7 +34676,7 @@ MonoBehaviour:
     m_MinLimit: -180
     m_MaxLimit: 180
     m_AimAxis: 1
-    m_UpAxis: 4
+    m_UpAxis: 2
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
@@ -40779,12 +40779,12 @@ Transform:
   m_GameObject: {fileID: 2099230646}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.828, y: 1.452, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1762967456}
   - {fileID: 915779785}
+  - {fileID: 1762967456}
   - {fileID: 724661192}
   m_Father: {fileID: 259243216}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
