@@ -17921,7 +17921,7 @@ MonoBehaviour:
       m_Item7:
         transform: {fileID: 0}
         weight: 0
-    m_Offset: {x: 0, y: 0, z: 0}
+    m_Offset: {x: -45, y: 0, z: 0}
     m_MinLimit: -180
     m_MaxLimit: 180
     m_AimAxis: 2
@@ -17929,7 +17929,7 @@ MonoBehaviour:
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
-    m_MaintainOffset: 0
+    m_MaintainOffset: 1
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -20160,6 +20160,10 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5468973098117794594, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
+      propertyPath: aimRig
+      value: 
+      objectReference: {fileID: 2099230647}
+    - target: {fileID: 5468973098117794594, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
       propertyPath: animatorManager
       value: 
       objectReference: {fileID: 1043715902}
@@ -20171,6 +20175,15 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 06d5e532114630348988234fa26e791b, type: 2}
+    - target: {fileID: 8532154174841240742, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Bip001 R Hand'\n\tTransform 'Bip001 Spine'\n\tTransform
+        'Bip001 L UpperArm'\n\tTransform 'Bip001 L Hand'\n\tTransform 'Bip001 L Forearm'\n\tTransform
+        'Bip001 R Forearm'\n\tTransform 'Bip001 Pelvis'\n\tTransform 'Bip001 R Hand'\n\tTransform
+        'Bip001 Spine'\n\tTransform 'Bip001 L UpperArm'\n\tand more ..."
+      objectReference: {fileID: 0}
     - target: {fileID: 8742146436168820894, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
       propertyPath: aimIdle
       value: 
@@ -20202,6 +20215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 250964542}
+  aimRig: {fileID: 2099230647}
 --- !u!1001 &1044057850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27777,13 +27791,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392703311}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.075, z: 0.5}
+  m_LocalRotation: {x: -0.2731964, y: 0.9372927, z: 0.207793, w: 0.06056658}
+  m_LocalPosition: {x: 0.06, y: -0.14, z: 0.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 264373470}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -25, y: -180, z: -392.5}
 --- !u!4 &1396951431 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5149015503972216563, guid: 20d9c287fff82dd49bc0a9b23650f1e1, type: 3}
@@ -40723,7 +40737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2099230647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40736,7 +40750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Effectors:
   - m_Transform: {fileID: 0}
     m_Style:

@@ -85,10 +85,6 @@ namespace StarterAssets
         public float regularFOV;
         public float aimFOV;
         public float aimTweenTime;
-        public Rig aimRig, idleRig;
-        private Tween aimTween, idleTween;
-        private const float RIG_TWEEN_TIME = 0.2f;
-        private Tween tweenAim;
         private UiManager uiManager;
         public Weapon currentWeapon;
 
@@ -119,13 +115,9 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
-
-        [SerializeField]
-        private Animator _animator;
-
         [SerializeField]
         private AnimatorManager animatorManager;
-
+        private Tween cameraAimTween;
 		private CharacterController _controller;
 
         [HideInInspector]
@@ -133,8 +125,7 @@ namespace StarterAssets
         private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
-
-        private bool _hasAnimator;
+        private const float CAMERA_TWEEN_TIME = 0.2f;
 
         private bool IsCurrentDeviceMouse
         {
@@ -161,9 +152,6 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-
-            //_hasAnimator = TryGetComponent(out _animator);
-            _hasAnimator = !(_animator == null);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM 
@@ -215,14 +203,9 @@ namespace StarterAssets
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
-            // update animator if using character
-            if (_hasAnimator)
-            {
-                //_animator.SetBool(_animIDGrounded, Grounded);
-                animatorManager.Grounded(Grounded);
-
-			}
-        }
+			// update animator if using character
+			animatorManager?.Grounded(Grounded);
+		}
 
         private void CameraRotation()
         {
@@ -307,12 +290,9 @@ namespace StarterAssets
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
-            // update animator if using character
-            if (_hasAnimator)
-            {
-                animatorManager.SetMovement(inputDirection, _speed);
-            }
-        }
+			// update animator if using character
+			animatorManager?.SetMovement(inputDirection, _speed);
+		}
 
         private void JumpAndGravity()
         {
@@ -321,15 +301,11 @@ namespace StarterAssets
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
 
-                // update animator if using character
-                if (_hasAnimator)
-                {
-                    animatorManager.Jump(false);
-					animatorManager.Falling(false);
-                }
+				animatorManager?.Jump(false);
+				animatorManager?.Falling(false);
 
-                // stop our velocity dropping infinitely when grounded
-                if (_verticalVelocity < 0.0f)
+				// stop our velocity dropping infinitely when grounded
+				if (_verticalVelocity < 0.0f)
                 {
                     _verticalVelocity = -2f;
                 }
@@ -340,12 +316,8 @@ namespace StarterAssets
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
-                    // update animator if using character
-                    if (_hasAnimator)
-                    {
-						animatorManager.Jump(true);
-					}
-                }
+					animatorManager?.Jump(true);
+				}
 
                 // jump timeout
                 if (_jumpTimeoutDelta >= 0.0f)
@@ -365,12 +337,9 @@ namespace StarterAssets
                 }
                 else
                 {
-                    // update animator if using character
-                    if (_hasAnimator)
-                    {
-						animatorManager.Falling(true);
-					}
-                }
+					// update animator if using character
+					animatorManager?.Falling(true);
+				}
 
                 // if we are not grounded, do not jump
                 _input.jump = false;
@@ -392,26 +361,19 @@ namespace StarterAssets
 
         private void Aim()
         {
-            aimTween?.Kill();
-            idleTween?.Kill();
-            tweenAim?.Kill();
-
             bool trueAim = _input.aim && !currentWeapon.reloading;
             float targetFov = trueAim ? aimFOV : regularFOV;
-            tweenAim = DOTween.To(() => playerCamera.Lens.FieldOfView, x => playerCamera.Lens.FieldOfView = x, targetFov, aimTweenTime);
 
-            _animator.SetBool("Aiming", trueAim);
+            cameraAimTween?.Kill();
+			cameraAimTween = DOTween.To(()=>playerCamera.Lens.FieldOfView, x => playerCamera.Lens.FieldOfView = x, targetFov, CAMERA_TWEEN_TIME);
+
+            animatorManager?.Aim(trueAim);
             uiManager.ToggleAim(trueAim);
 
             if (currentWeapon.reloading)
             {
                 return;
             }
-            float targetRigWeightAim = trueAim ? 1 : 0;
-            float targetRigWeightIdle = trueAim ? 0 : 1;
-
-            aimTween = DOTween.To(() => aimRig.weight, x => aimRig.weight = x, targetRigWeightAim, RIG_TWEEN_TIME);
-            idleTween = DOTween.To(() => idleRig.weight, x => idleRig.weight = x, targetRigWeightIdle, RIG_TWEEN_TIME);
 
             if (CameraManager.instance != null && _input.aim)
             {
