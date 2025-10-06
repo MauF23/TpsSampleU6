@@ -11,7 +11,7 @@ public class CameraManager : MonoBehaviour
 	public CinemachineBasicMultiChannelPerlin noise;
     public Transform aimHelper;
     public LayerMask aimLayer;
-    private Vector3 aimDirection;
+    private Vector3 aimDirection, lastAimDirection;
     private const float DEFAULT_AIM_RANGE = 100;
     private const float SHAKE_DEFAULT_TIME = 0.5f;
     private const float DEFAULT_SHAKE_AMP = 0.5f;
@@ -19,6 +19,7 @@ public class CameraManager : MonoBehaviour
 
     public static CameraManager instance;
     private Sequence cameraShakeTweenSequence;
+    private UiManager uiManager;
 
 
     void Awake()
@@ -31,13 +32,22 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
-        //noise = playerVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-    }
+		uiManager = UiManager.instance;
+
+	}
 
     void Update()
     {
+        if (uiManager != null && uiManager.paused)
+        {
+            aimHelper.transform.position = lastAimDirection;
+            return;
+		}
+
         aimHelper.transform.position = aimDirection;
-    }
+		lastAimDirection = aimDirection;
+
+	}
 
     public Vector3 Aim()
     {
