@@ -20,6 +20,7 @@ public class CameraManager : MonoBehaviour
     public static CameraManager instance;
     private Sequence cameraShakeTweenSequence;
     private UiManager uiManager;
+    private bool aimTrack = false;
 
 
     void Awake()
@@ -38,6 +39,11 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
+        if (!aimTrack)
+        {
+            return;
+        }
+
         if (uiManager != null && uiManager.paused)
         {
             aimHelper.transform.position = lastAimDirection;

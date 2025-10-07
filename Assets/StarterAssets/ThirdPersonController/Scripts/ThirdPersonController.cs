@@ -160,8 +160,6 @@ namespace StarterAssets
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
 
-            AssignAnimationIDs();
-
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
@@ -182,17 +180,6 @@ namespace StarterAssets
         private void LateUpdate()
         {
             CameraRotation();
-        }
-
-        private void AssignAnimationIDs()
-        {
-            _animIDSpeed = Animator.StringToHash("Speed");
-            _animIDGrounded = Animator.StringToHash("Grounded");
-            _animIDJump = Animator.StringToHash("Jump");
-            _animIDFreeFall = Animator.StringToHash("FreeFall");
-            _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-            _animIDMoveX = Animator.StringToHash("MoveDirX");
-            _animIDMoveZ = Animator.StringToHash("MoveDirZ");
         }
 
         private void GroundedCheck()
@@ -230,8 +217,9 @@ namespace StarterAssets
 
         private void Move()
         {
-            // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			#region MovementLogic
+			// set target speed based on move speed, sprint speed and if sprint is pressed
+			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
             if (_input.aim)
             {
@@ -251,8 +239,7 @@ namespace StarterAssets
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
             // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset)
+            if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
             {
                 // creates curved result rather than a linear one giving a more organic speed change
                 // note T in Lerp is clamped, so we don't need to clamp our speed
@@ -289,9 +276,9 @@ namespace StarterAssets
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-
+			#endregion
 			// update animator if using character
-			animatorManager?.SetMovement(inputDirection, _speed);
+			animatorManager?.SetMovement(_speed);
 		}
 
         private void JumpAndGravity()
@@ -432,25 +419,5 @@ namespace StarterAssets
                 new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
                 GroundedRadius);
         }
-
-        //private void OnFootstep(AnimationEvent animationEvent)
-        //{
-        //    // if (animationEvent.animatorClipInfo.weight > 0.5f)
-        //    // {
-        //    //     if (FootstepAudioClips.Length > 0)
-        //    //     {
-        //    //         var index = Random.Range(0, FootstepAudioClips.Length);
-        //    //         AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-        //    //     }
-        //    // }
-        //}
-
-        //private void OnLand(AnimationEvent animationEvent)
-        //{
-        //    // if (animationEvent.animatorClipInfo.weight > 0.5f)
-        //    // {
-        //    //     AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
-        //    // }
-        //}
     }
 }

@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
     private Transform firePoint;
 
     [SerializeField]
-    private Animator animator;
+    private AnimatorManager animatorManager;
 
     [SerializeField]
     private Rig rigIdle, aimIdle;
@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour
 
 	private CameraManager cameraManager;
     private UiManager uiManager;
-    private const string ANIM_RELOAD_TRIGGER = "Reload";
+
 
     private void Start()
     {
@@ -121,7 +121,13 @@ public class Weapon : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
-            ReloadAnim();
+            if (animatorManager)
+            {
+                ReloadAnim();
+                return;
+            }
+
+            Reload();
         }
     }
 
@@ -141,9 +147,7 @@ public class Weapon : MonoBehaviour
     public void ReloadAnim()
     {
         reloading = true;
-        Debug.Log($"ReloadStart");
-        ToggleRigs(false);
-        animator?.SetTrigger(ANIM_RELOAD_TRIGGER);
+        animatorManager?.Reaload();
     }
 
     public void Reload()
