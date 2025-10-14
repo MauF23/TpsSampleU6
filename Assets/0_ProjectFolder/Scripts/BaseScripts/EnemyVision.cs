@@ -29,6 +29,11 @@ public class EnemyVision : MonoBehaviour
 		RaycastHit hit;
 		Physics.SphereCast(visionRay, visionRadius, out hit, range, layerMask);
 		
+		if(hit.transform == null)
+		{
+			return false;
+		}
+
 		if(hit.transform.CompareTag("Player"))
 		{
 			onSeeEvent?.Invoke();

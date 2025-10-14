@@ -1,8 +1,8 @@
 using UnityEngine;
 using StarterAssets;
 using DG.Tweening;
-using TMPro;
-using UnityEngine.Animations.Rigging;
+//using TMPro;
+//using UnityEngine.Animations.Rigging;
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
@@ -18,10 +18,13 @@ public class Weapon : MonoBehaviour
     private Transform firePoint;
 
     [SerializeField]
-    private AnimatorManager animatorManager;
+    private Animator animator;
 
     [SerializeField]
-    private Rig rigIdle, aimIdle;
+    private bool infiniteAmmo;
+
+	//[SerializeField]
+    //private Rig rigIdle, aimIdle;
 
     [SerializeField, Range(10, 10000)]
     private float weaponRange;
@@ -51,7 +54,7 @@ public class Weapon : MonoBehaviour
 
 	private CameraManager cameraManager;
     private UiManager uiManager;
-
+    private const string ANIM_RELOAD_TRIGGER = "Reload";
 
     private void Start()
     {
@@ -121,13 +124,7 @@ public class Weapon : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
-            if (animatorManager)
-            {
-                ReloadAnim();
-                return;
-            }
-
-            Reload();
+            ReloadAnim();
         }
     }
 
@@ -146,23 +143,47 @@ public class Weapon : MonoBehaviour
 
     public void ReloadAnim()
     {
-        reloading = true;
-        animatorManager?.Reaload();
+		if (!HasAmmo())
+		{
+			return;
+		}
+
+		reloading = true;
+        Debug.Log($"ReloadStart");
+        //ToggleRigs(false);
+        animator?.SetTrigger(ANIM_RELOAD_TRIGGER);
     }
 
     public void Reload()
     {
-        ToggleRigs(true);
+        //ToggleRigs(true);
 
-        if (currentReserveAmmo <= 0 || currentAmmo >= maxAmmoCapacity)
+        if (!HasAmmo())
         {
             return;
         }
 
-        int ammoToReload = maxClipCapacity - currentAmmo;
 
-        currentAmmo += ammoToReload;
+        int ammoToReload = 0;
+        int ammoToFillClip = maxClipCapacity - currentAmmo;
+
+        if (currentReserveAmmo >= ammoToFillClip)
+        {
+            ammoToReload = ammoToFillClip;
+		}
+        else
+        {
+            ammoToReload = currentReserveAmmo;
+        }
+
+		currentAmmo += ammoToReload;
         currentReserveAmmo -= ammoToReload;
+
+
+        if (currentReserveAmmo <= 0)
+        {
+			currentReserveAmmo = 0;
+        }
 
         reloading = false;
 
@@ -178,16 +199,27 @@ public class Weapon : MonoBehaviour
         uiManager?.SetAmmoCount(currentAmmo, currentReserveAmmo);
     }
 
-    private void ToggleRigs(bool toggle)
+    private bool HasAmmo()
     {
-        float endValue = toggle ? 1 : 0;
-
-        if(rigIdle == null || aimIdle == null)
+        if (infiniteAmmo && currentReserveAmmo <= 0)
         {
-            return;
+            currentReserveAmmo = maxClipCapacity;
         }
 
-        rigIdle.weight = endValue;
-        aimIdle.weight = endValue;
-    }
+        return currentReserveAmmo > 0;
+
+	}
+
+    //private void ToggleRigs(bool toggle)
+    //{
+    //    float endValue = toggle ? 1 : 0;
+
+    //    if(rigIdle == null || aimIdle == null)
+    //    {
+    //        return;
+    //    }
+
+    //    rigIdle.weight = endValue;
+    //    aimIdle.weight = endValue;
+    //}
 }
