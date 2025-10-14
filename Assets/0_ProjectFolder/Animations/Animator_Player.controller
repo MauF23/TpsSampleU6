@@ -344,7 +344,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Torso
     m_StateMachine: {fileID: 8693543981841070022}
-    m_Mask: {fileID: 31900000, guid: 7c86a7f0e2d4fcf4e918067d263504ff, type: 2}
+    m_Mask: {fileID: 101100000, guid: aee2a250e1bee10409d88b75d5d91304, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0

@@ -20047,10 +20047,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4163706711268912805, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
+      propertyPath: m_Data.m_UpAxis
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7934092312990767162, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
       propertyPath: m_Name
       value: PlayerGroup
       objectReference: {fileID: 0}
+    - target: {fileID: 8532154174841240742, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 166b3c4b0f82061438e4ba849d9a5a09, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

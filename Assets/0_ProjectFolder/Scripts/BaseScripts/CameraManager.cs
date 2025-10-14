@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
     public static CameraManager instance;
     private Sequence cameraShakeTweenSequence;
     private UiManager uiManager;
-    private bool aimTrack = false;
+    private bool aimTrack = true;
 
 
     void Awake()
@@ -52,10 +52,9 @@ public class CameraManager : MonoBehaviour
 
         aimHelper.transform.position = aimDirection;
 		lastAimDirection = aimDirection;
-
 	}
 
-    public Vector3 Aim()
+	public Vector3 Aim()
     {
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
 
