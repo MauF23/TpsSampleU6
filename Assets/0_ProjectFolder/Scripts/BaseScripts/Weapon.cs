@@ -1,8 +1,8 @@
 using UnityEngine;
 using StarterAssets;
 using DG.Tweening;
-using TMPro;
-using UnityEngine.Animations.Rigging;
+//using TMPro;
+//using UnityEngine.Animations.Rigging;
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
@@ -23,8 +23,8 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private bool infiniteAmmo;
 
-	[SerializeField]
-    private Rig rigIdle, aimIdle;
+	//[SerializeField]
+    //private Rig rigIdle, aimIdle;
 
     [SerializeField, Range(10, 10000)]
     private float weaponRange;
@@ -150,13 +150,13 @@ public class Weapon : MonoBehaviour
 
 		reloading = true;
         Debug.Log($"ReloadStart");
-        ToggleRigs(false);
+        //ToggleRigs(false);
         animator?.SetTrigger(ANIM_RELOAD_TRIGGER);
     }
 
     public void Reload()
     {
-        ToggleRigs(true);
+        //ToggleRigs(true);
 
         if (!HasAmmo())
         {
@@ -210,16 +210,16 @@ public class Weapon : MonoBehaviour
 
 	}
 
-    private void ToggleRigs(bool toggle)
-    {
-        float endValue = toggle ? 1 : 0;
+    //private void ToggleRigs(bool toggle)
+    //{
+    //    float endValue = toggle ? 1 : 0;
 
-        if(rigIdle == null || aimIdle == null)
-        {
-            return;
-        }
+    //    if(rigIdle == null || aimIdle == null)
+    //    {
+    //        return;
+    //    }
 
-        rigIdle.weight = endValue;
-        aimIdle.weight = endValue;
-    }
+    //    rigIdle.weight = endValue;
+    //    aimIdle.weight = endValue;
+    //}
 }
