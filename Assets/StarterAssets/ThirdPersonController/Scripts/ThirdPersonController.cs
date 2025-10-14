@@ -195,6 +195,7 @@ namespace StarterAssets
             _animIDMoveZ = Animator.StringToHash("MoveDirZ");
         }
 
+        //check
         private void GroundedCheck()
         {
             // set sphere position, with offset
