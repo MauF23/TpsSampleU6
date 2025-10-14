@@ -8,6 +8,7 @@ public class AnimatorManager : MonoBehaviour
 	public Rig aimRig;
 	private Tween tweenAim;
 
+	#region Constants
 	private const string SPEED = "Speed";
 	private const string AIM = "Aiming";
 	private const string GROUND = "Grounded";
@@ -17,6 +18,7 @@ public class AnimatorManager : MonoBehaviour
 	private const string MOVEX = "MoveDirX";
 	private const string MOVEZ = "MoveDirZ";
 	private const float RIG_TWEEN_TIME = 0.15f;
+	#endregion
 
 
 
