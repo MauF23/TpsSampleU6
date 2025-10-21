@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3ef06150e9c981d4da3148fad4ef00f8, type: 2}
+  - {fileID: 1709889374084360237, guid: ee488f9f6d9afd849b0683d1cc358c98, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 5951629636085399232}
   - component: {fileID: 6474866009706803195}
   - component: {fileID: 983552048641245354}
-  - component: {fileID: 1028070505626548841}
   m_Layer: 0
   m_Name: P_AmmoBox
   m_TagString: Untagged
@@ -187,7 +186,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3ef06150e9c981d4da3148fad4ef00f8, type: 2}
+  - {fileID: 1709889374084360237, guid: ee488f9f6d9afd849b0683d1cc358c98, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -253,7 +252,7 @@ MonoBehaviour:
   onRangeEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1028070505626548841}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InteractableShaderController, Assembly-CSharp
         m_MethodName: StartHint
         m_Mode: 1
@@ -268,7 +267,7 @@ MonoBehaviour:
   onExitRangeEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1028070505626548841}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InteractableShaderController, Assembly-CSharp
         m_MethodName: EndHint
         m_Mode: 1
@@ -305,23 +304,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0586367, y: 0.46501118, z: 0.76559013}
   m_Center: {x: 0, y: 0.23251382, z: 0}
---- !u!114 &1028070505626548841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7327652846365313455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 727890533940ddb4d89de4bb26ffb876, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderers:
-  - {fileID: 5577666251786718694}
-  - {fileID: 7276307730211047238}
-  propertyFresnelPower: _FresnelPower
-  propertyFresnelColor: _FresnelColor
-  startValue: 10
-  targetValue: 2
-  loopType: 1

@@ -64,7 +64,7 @@ Material:
     - _QueueOffset: 0
     - _RoughnessIntensity: 0.68
     m_Colors:
-    - _AlbedoTint: {r: 0, g: 0, b: 0, a: 0}
+    - _AlbedoTint: {r: 0.723318, g: 0, b: 0, a: 0.723318}
     - _EmmisiveTint: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
