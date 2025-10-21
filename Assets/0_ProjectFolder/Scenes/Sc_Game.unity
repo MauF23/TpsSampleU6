@@ -20292,6 +20292,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2230960411081068023, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
+      propertyPath: onRemoveHpEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2485071400546929545, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.3499999
@@ -20328,7 +20332,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerGroup
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6141351973032749816, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8532154174850323244, guid: 2f91dfa118283b346904fa30405500d3, type: 3}
