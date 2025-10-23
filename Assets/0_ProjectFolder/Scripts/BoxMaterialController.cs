@@ -1,11 +1,12 @@
 using UnityEngine;
-using DG.Tweening;// Importar DOTWeen
+using DG.Tweening;
+using System.Xml.Serialization;// Importar DOTWeen
 
 public class BoxMaterialController : MonoBehaviour
 {
-    public Renderer[] renderers;
-    public Material originalMaterial;
-    private Material runtimeMaterial;
+    public Renderer[] renderers; //renderers a los que se les aplicará el material.
+    public Material originalMaterial; //el material original que se clonará.
+    private Material runtimeMaterial; //clon del material original que se le aplicará a todos los renderers.
 
     private Tween fresnelTween, flickerTween;
 
@@ -20,12 +21,21 @@ public class BoxMaterialController : MonoBehaviour
 
 	private void Start()
 	{
-        runtimeMaterial = new Material(originalMaterial);
+        SetRuntimeMaterial();
+	}
 
-        for(int i = 0; i < renderers.Length; i++)
-        {
-            renderers[i].material = runtimeMaterial; 
-        }
+    /// <summary>
+    /// En lugar de ciclar los renderers por tweens clonamos el material original y se lo aplicamos a todos los renderers solo una vez
+    /// Así solamente referenciamos el material clon en los tweens y se le aplica a todos los renderers del objeto.
+    /// </summary>
+    private void SetRuntimeMaterial()
+    {
+		runtimeMaterial = new Material(originalMaterial);
+
+		for (int i = 0; i < renderers.Length; i++)
+		{
+			renderers[i].material = runtimeMaterial;
+		}
 	}
 
 	private void Update()
@@ -59,7 +69,4 @@ public class BoxMaterialController : MonoBehaviour
         float targetValue = active ? 1f : 0f;
 		fresnelTween = runtimeMaterial.DOFloat(targetValue, fresnelMask, tweenTime);
 	}
-
-
-
 }
