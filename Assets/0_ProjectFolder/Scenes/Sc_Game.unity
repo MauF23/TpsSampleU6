@@ -22124,12 +22124,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5577666251786718694, guid: 6cc286f7017ada34da5e293574248931, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577666251786718694, guid: 6cc286f7017ada34da5e293574248931, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 1ec735b3800286b4283aa49546043dfb, type: 2}
     - target: {fileID: 7276307730211047238, guid: 6cc286f7017ada34da5e293574248931, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7276307730211047238, guid: 6cc286f7017ada34da5e293574248931, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7276307730211047238, guid: 6cc286f7017ada34da5e293574248931, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -32925,9 +32933,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30f53e39683af64d80cd3451084ec5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderes:
+  renderers:
   - {fileID: 1661141767}
   - {fileID: 1184950248}
+  originalMaterial: {fileID: 2100000, guid: 1ec735b3800286b4283aa49546043dfb, type: 2}
   tweenTime: 0.35
   flickerTime: 0.2
   flickerLoops: 4
