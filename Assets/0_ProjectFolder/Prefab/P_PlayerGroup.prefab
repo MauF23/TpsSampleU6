@@ -444,7 +444,6 @@ GameObject:
   - component: {fileID: 5815346798159022046}
   - component: {fileID: 3121750462639667509}
   - component: {fileID: 8742146436168820894}
-  - component: {fileID: 6141351973032749816}
   - component: {fileID: 2230960411081068023}
   - component: {fileID: 6572998869775287298}
   m_Layer: 3
@@ -735,24 +734,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 193
   soundManager: {fileID: 431254194517173758}
---- !u!114 &6141351973032749816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4442358988191447300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4e395464ddb5247875e171fc3b13a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: a1ae67a7dc0c7a346be33ecbf96b1366, type: 2}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  targetColor: {r: 1, g: 0, b: 0, a: 1}
-  colorProperty: _AlbedoTint
-  loops: 4
-  flickerTime: 0.2
 --- !u!114 &2230960411081068023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,7 +750,7 @@ MonoBehaviour:
   onRemoveHpEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6141351973032749816}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MaterialFlicker, Assembly-CSharp
         m_MethodName: Flicker
         m_Mode: 1
@@ -813,6 +794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8532154174841240742}
+  aimRig: {fileID: 0}
 --- !u!1 &5112128069053961553
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,11 +5,13 @@ public class AnimatorManager : MonoBehaviour
 {
     public Animator animator;
 	public Rig aimRig;
+	public PostProcessingManager postProcessingManager;
 
 	#region Constants
 	private const string SPEED = "Speed";
 	private const string AIM = "Aiming";
 	private const string GROUND = "Grounded";
+	private const string CROUCH = "Crouch";
 	private const string FALL = "FreeFall";
 	private const string JUMP = "Jump";
 	private const string MOTION = "MotionSpeed";
@@ -50,6 +52,15 @@ public class AnimatorManager : MonoBehaviour
 
 		animator?.SetFloat(MOVEX, movementVector.normalized.x, 0.1f, Time.deltaTime);
 		animator?.SetFloat(MOVEZ, movementVector.normalized.z, 0.1f, Time.deltaTime);
+	}
+
+	public void Crouch(bool crouch)
+	{
+		animator?.SetBool(CROUCH, crouch);
+
+		float vignetteIntensity = crouch ? 0.5f : 0;
+
+		postProcessingManager?.VignetteFx(Color.black, vignetteIntensity, 0.2f, 0);
 	}
 
 	public void ToggleRig(bool active)

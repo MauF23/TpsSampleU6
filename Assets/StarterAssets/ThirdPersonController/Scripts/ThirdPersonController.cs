@@ -79,6 +79,7 @@ namespace StarterAssets
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
+        private bool crouch;
 
         [Header("CinemachineAim")]
         public CinemachineCamera playerCamera;
@@ -106,7 +107,8 @@ namespace StarterAssets
 
         // animation IDs
         private int _animIDSpeed;
-        private int _animIDGrounded;
+		private int _animIDCrouch;
+		private int _animIDGrounded;
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
@@ -177,6 +179,7 @@ namespace StarterAssets
             GroundedCheck();
             Move();
             Aim();
+            Crouch();
         }
 
         private void LateUpdate()
@@ -193,7 +196,7 @@ namespace StarterAssets
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDMoveX = Animator.StringToHash("MoveDirX");
             _animIDMoveZ = Animator.StringToHash("MoveDirZ");
-        }
+		}
 
         //check
         private void GroundedCheck()
@@ -231,8 +234,8 @@ namespace StarterAssets
 
         private void Move()
         {
-            // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			// set target speed based on move speed, sprint speed and if sprint is pressed
+			float targetSpeed = (_input.sprint && !crouch) ? SprintSpeed : MoveSpeed;
 
             if (_input.aim)
             {
@@ -295,8 +298,30 @@ namespace StarterAssets
 			animatorManager?.SetMovement(inputDirection, _speed);
 		}
 
-        private void JumpAndGravity()
+        private void Crouch()
         {
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                crouch = true;
+                animatorManager?.Crouch(crouch);
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+				crouch = false;
+				animatorManager?.Crouch(crouch);
+			}
+
+		}
+
+
+		private void JumpAndGravity()
+        {
+            if (crouch)
+            {
+                return;
+            }
+
             if (Grounded)
             {
                 // reset the fall timeout timer
