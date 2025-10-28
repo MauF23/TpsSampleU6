@@ -5,7 +5,6 @@ public class AnimatorManager : MonoBehaviour
 {
     public Animator animator;
 	public Rig aimRig;
-	public PostProcessingManager postProcessingManager;
 
 	#region Constants
 	private const string SPEED = "Speed";
@@ -59,8 +58,6 @@ public class AnimatorManager : MonoBehaviour
 		animator?.SetBool(CROUCH, crouch);
 
 		float vignetteIntensity = crouch ? 0.5f : 0;
-
-		postProcessingManager?.VignetteFx(Color.black, vignetteIntensity, 0.2f, 0);
 	}
 
 	public void ToggleRig(bool active)
