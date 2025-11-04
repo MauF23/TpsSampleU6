@@ -32,6 +32,6 @@ public class PostProcessManager : MonoBehaviour
 
         //()=>vigentte.intensity.value significa obtener el valor actual de la intensidad
         //x => vigentte.intensity.value = x singifica que el valor obtenido lo va a igualar al valor que le pasemos como objetivo
-        vignetteTween = DOTween.To(() => vigentte.intensity.value, x => vigentte.intensity.value = x, intensity, tweenTime).SetLoops(loops, LoopType.Yoyo).OnComplete(()=>vigentte.intensity.value = 0);
+        vignetteTween = DOTween.To(() => vigentte.intensity.value, x => vigentte.intensity.value = x, intensity, tweenTime).SetLoops(loops, LoopType.Yoyo);
     }
 }
