@@ -113,9 +113,10 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
         private int _animIDMoveX, _animIDMoveZ;
+        private bool recieveInput = true;
 
 #if ENABLE_INPUT_SYSTEM
-        private PlayerInput _playerInput;
+		private PlayerInput _playerInput;
 #endif
         [SerializeField]
         private AnimatorManager animatorManager;
@@ -300,6 +301,11 @@ namespace StarterAssets
 
         private void Crouch()
         {
+            if (!recieveInput)
+            {
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 crouch = true;
@@ -411,6 +417,7 @@ namespace StarterAssets
 
         public void ToggleInputBlock(bool blocked)
         {
+            recieveInput = blocked;
             _playerInput.enabled = !blocked;
         }
 
