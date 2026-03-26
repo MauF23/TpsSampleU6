@@ -301,7 +301,7 @@ namespace StarterAssets
 
         private void Crouch()
         {
-            if (!recieveInput)
+            if (!recieveInput || !Grounded)
             {
                 return;
             }
