@@ -301,12 +301,13 @@ namespace StarterAssets
 
         private void Crouch()
         {
-            if (!recieveInput)
-            {
-                return;
-            }
+			if (!recieveInput || !Grounded)
+			{
+				return;
+			}
 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+
+			if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 crouch = true;
                 animatorManager?.Crouch(crouch);
