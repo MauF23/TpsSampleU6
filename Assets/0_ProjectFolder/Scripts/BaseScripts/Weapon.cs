@@ -48,7 +48,7 @@ public class Weapon : MonoBehaviour
 	protected UiManager uiManager;
 	protected const string ANIM_RELOAD_TRIGGER = "Reload";
 
-	protected void Start()
+	protected virtual void Start()
 	{
 		if (CameraManager.instance != null)
 		{

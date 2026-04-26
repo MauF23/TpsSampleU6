@@ -4,20 +4,27 @@ public class WeaponProjectile : Weapon
 {
 	const string CATEGORY = "WeaponProjectile";
 
-	[Header(CATEGORY), SerializeField]
-	private GameObject projectilePrefab;
+	[Header(CATEGORY)]
 
 	[SerializeField]
 	private float shootForce;
 
+	private GameObjectPool projectilePool;
+
+	protected override void Start()
+	{
+		base.Start();
+		projectilePool = PoolManager.instance.projectilePool;
+	}
+
 	protected override void Shoot(Vector3 direction)
 	{
-		if(projectilePrefab == null)
+		if(projectilePool == null)
 		{
 			return;
 		}
 
-		GameObject projectileClone = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+		GameObject projectileClone = projectilePool.GetGameObjectFromPool(firePoint.position);
 		Projectile projectile = projectileClone.GetComponent<Projectile>();
 		projectile?.LaunchProjectile(direction.normalized * shootForce);
 	}

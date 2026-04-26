@@ -11,13 +11,20 @@ public class Projectile : MonoBehaviour
 	private int damage = 100;
 	private float damageRadius = 7;
 
+	private GameObjectPool explosionPool;
+
+	private void Start()
+	{
+		explosionPool = PoolManager.instance.explosionPool;
+	}
+
 	private void OnCollisionEnter(Collision collision)
 	{
 		Vector3 hitPoint = collision.GetContact(0).point;
 
-		GameObject explosion = Instantiate(explosionPrefab, hitPoint, Quaternion.identity);
+		GameObject explosion = explosionPool.GetGameObjectFromPool(hitPoint);
 		SplashDamage(hitPoint);
-		Destroy(gameObject);
+		gameObject.SetActive(false);
 	}
 
 	private void SplashDamage(Vector3 position)

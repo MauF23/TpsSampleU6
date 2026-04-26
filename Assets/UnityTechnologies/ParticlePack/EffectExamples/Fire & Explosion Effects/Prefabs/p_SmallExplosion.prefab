@@ -9743,7 +9743,7 @@ GameObject:
   - component: {fileID: 198656289721292014}
   - component: {fileID: 199514137936353666}
   m_Layer: 0
-  m_Name: SmallExplosion
+  m_Name: p_SmallExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10338,7 +10338,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 1000
+    maxNumParticles: 500
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
