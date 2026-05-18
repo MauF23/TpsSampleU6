@@ -39,6 +39,7 @@ public class Projectile : MonoBehaviour
 
 	public void LaunchProjectile(Vector3 direction)
 	{
+		rigidBody.linearVelocity = Vector3.zero;
 		rigidBody.AddForce(direction);
 	}
 }
