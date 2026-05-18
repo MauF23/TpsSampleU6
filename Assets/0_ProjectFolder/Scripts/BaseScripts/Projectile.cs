@@ -11,20 +11,31 @@ public class Projectile : MonoBehaviour
 	private int damage = 100;
 	private float damageRadius = 7;
 
-	private GameObjectPool explosionPool;
+	private GameObjectPool explosionPool, decalPool;
 
 	private void Start()
 	{
 		explosionPool = PoolManager.instance.explosionPool;
-	}
+		decalPool = PoolManager.instance.decalPool;
+    }
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		Vector3 hitPoint = collision.GetContact(0).point;
+		Vector3 hitPoint = collision.GetContact(0).point; // obtener el primer contacto y su pocisión (point)
+		Vector3 normalPoint = collision.GetContact(0).normal;
+
+		SpawnDecal(hitPoint, normalPoint);
 
 		GameObject explosion = explosionPool.GetGameObjectFromPool(hitPoint);
 		SplashDamage(hitPoint);
 		gameObject.SetActive(false);
+	}
+
+	private void SpawnDecal(Vector3 position, Vector3 normal)
+	{
+		GameObject decal = decalPool.GetGameObjectFromPool(position);
+		Quaternion decalRotation = Quaternion.LookRotation(-normal); //girar el decal a la dirección de la normal de la cara del mesh que haya golpeado.
+		decal.transform.rotation = decalRotation;
 	}
 
 	private void SplashDamage(Vector3 position)
